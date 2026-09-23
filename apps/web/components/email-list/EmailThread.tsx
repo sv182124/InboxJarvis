@@ -1,0 +1,406 @@
+import { OpenedConversationAttachments } from "./OpenedConversationAttachments";
+import { useEffect, useMemo, useState, useRef, type ReactNode } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
+import { isTypingTarget } from "@/lib/shortcuts/registry";
+import { ChevronsDownUpIcon, ChevronsUpDownIcon } from "lucide-react";
+import { Tooltip } from "@/components/Tooltip";
+import type { ThreadMessage } from "@/components/email-list/types";
+import { EmailMessage } from "@/components/email-list/EmailMessage";
+import { useAccount } from "@/providers/EmailAccountProvider";
+import { useReplyDrafts } from "@/hooks/useReplyDrafts";
+import { ThreadDeliveryStatus } from "@/components/email-list/ThreadDeliveryStatus";
+import { Button } from "@/components/ui/button";
+import {
+  getReplyDraftMode,
+  getReplyDraftSessionId,
+  type ReplyDraftMode,
+  type StoredReplyDraft,
+} from "@/utils/mail-engine/reply-drafts";
+import { internalDateToDate } from "@/utils/date";
+import { GmailLabel } from "@/utils/gmail/label";
+import { useSentMessageOpens } from "@/hooks/useSentMessageOpens";
+
+export function EmailThread({
+  messages,
+  missingBodyIds,
+  refetch,
+  showReplyButton,
+  autoOpenReplyForMessageId,
+  autoOpenForwardForMessageId,
+  topRightComponent,
+  onSendSuccess,
+  onMarkDone,
+  onOpenSenderContext,
+  withHeader,
+  renderToolbar,
+  renderMessageMenu,
+  enableMessageNavigation = false,
+}: {
+  messages: ThreadMessage[];
+  missingBodyIds?: Set<string>;
+  refetch: () => void;
+  showReplyButton: boolean;
+  autoOpenReplyForMessageId?: string;
+  autoOpenForwardForMessageId?: string;
+  topRightComponent?: React.ReactNode;
+  onSendSuccess?: (messageId: string, threadId: string) => void;
+  onMarkDone?: () => void;
+  onOpenSenderContext?: (message: ThreadMessage) => void;
+  withHeader?: boolean;
+  enableMessageNavigation?: boolean;
+  renderMessageMenu?: (message: ThreadMessage) => ReactNode;
+  renderToolbar?: (controls: {
+    allExpanded: boolean;
+    canExpand: boolean;
+    onToggleAll: () => void;
+  }) => ReactNode;
+}) {
+  const { emailAccountId } = useAccount();
+  const threadId = messages[0]?.threadId ?? "";
+  const { drafts: localDrafts } = useReplyDrafts(emailAccountId, threadId);
+  const { data: sentMessageOpens } = useSentMessageOpens(threadId || null);
+  const organizedMessages = useMemo(
+    () => organizeThreadMessages(messages),
+    [messages],
+  );
+
+  const lastMessageId = organizedMessages.at(-1)?.message.id;
+
+  const [expansionOverrides, setExpansionOverrides] = useState<
+    Map<string, boolean>
+  >(
+    () =>
+      new Map(
+        organizedMessages
+          .filter(({ message }) =>
+            message.labelIds?.includes(GmailLabel.UNREAD),
+          )
+          .map(({ message }) => [message.id, true]),
+      ),
+  );
+  const [recoveredReply, setRecoveredReply] = useState<{
+    messageId: string;
+    mode: ReplyDraftMode;
+    version: number;
+  }>();
+  useEffect(() => {
+    const messageId = autoOpenForwardForMessageId ?? autoOpenReplyForMessageId;
+    if (messageId)
+      setExpansionOverrides((previous) =>
+        new Map(previous).set(messageId, true),
+      );
+  }, [autoOpenForwardForMessageId, autoOpenReplyForMessageId]);
+  const expanded = (id: string, hasDraft: boolean) =>
+    expansionOverrides.get(id) ?? (id === lastMessageId || hasDraft);
+  const hasLocalDraft = (id: string) =>
+    Boolean(getLocalDraftMode(localDrafts, id));
+  const allExpanded = organizedMessages.every(({ message, draftMessages }) =>
+    expanded(
+      message.id,
+      autoOpenReplyForMessageId === message.id ||
+        autoOpenForwardForMessageId === message.id ||
+        recoveredReply?.messageId === message.id ||
+        draftMessages.length > 0 ||
+        hasLocalDraft(message.id),
+    ),
+  );
+
+  const toggleAll = () =>
+    setExpansionOverrides(
+      new Map(
+        organizedMessages.map(({ message }) => [
+          message.id,
+          allExpanded ? message.id === lastMessageId : true,
+        ]),
+      ),
+    );
+  const [selectedMessageId, setSelectedMessageId] = useState<string>();
+  const selectedId = organizedMessages.some(
+    ({ message }) => message.id === selectedMessageId,
+  )
+    ? selectedMessageId
+    : lastMessageId;
+  const threadRef = useRef<HTMLDivElement>(null);
+  const selectRelativeMessage = (direction: -1 | 1, fromId = selectedId) => {
+    const currentIndex = organizedMessages.findIndex(
+      ({ message }) => message.id === fromId,
+    );
+    const nextIndex = Math.max(
+      0,
+      Math.min(organizedMessages.length - 1, currentIndex + direction),
+    );
+    const nextId = organizedMessages[nextIndex]?.message.id;
+    if (!nextId) return;
+    setSelectedMessageId(nextId);
+    const element = Array.from(
+      threadRef.current?.querySelectorAll<HTMLElement>(
+        "[data-thread-message-id]",
+      ) ?? [],
+    ).find((item) => item.dataset.threadMessageId === nextId);
+    element?.focus({ preventScroll: true });
+    element?.scrollIntoView({ block: "nearest" });
+  };
+  useHotkeys(
+    "arrowup,arrowdown",
+    (event) => selectRelativeMessage(event.key === "ArrowUp" ? -1 : 1),
+    {
+      enabled: enableMessageNavigation,
+      scopes: ["mail"],
+      useKey: true,
+      preventDefault: true,
+      ignoreEventWhen: (event: KeyboardEvent) =>
+        event.isComposing ||
+        window.getSelection()?.isCollapsed === false ||
+        isTypingTarget(event.target) ||
+        (event.target instanceof Element &&
+          Boolean(
+            event.target.closest(
+              '[role="dialog"], [role="menu"], [role="listbox"]',
+            ),
+          )),
+    },
+  );
+
+  return (
+    // White regardless of the surface it is dropped on: an email body renders
+    // on white inside its iframe, so anything else leaves each message boxed.
+    <OpenedConversationAttachments
+      allowUncached
+      emailAccountId={emailAccountId}
+      threadId={threadId}
+    >
+      <div className="min-w-0 bg-card" ref={threadRef}>
+        {renderToolbar?.({
+          allExpanded,
+          canExpand: organizedMessages.length > 1,
+          onToggleAll: toggleAll,
+        })}
+        {withHeader && (
+          <div className="flex items-center justify-between">
+            <div className="font-semibold text-2xl text-foreground">
+              {messages[0]?.headers.subject}
+            </div>
+            {topRightComponent && (
+              <div className="flex items-center gap-2">{topRightComponent}</div>
+            )}
+          </div>
+        )}
+
+        {!renderToolbar && organizedMessages.length > 1 && (
+          <div className="flex justify-end pt-2">
+            <Tooltip
+              content={
+                allExpanded ? "Collapse all messages" : "Expand all messages"
+              }
+            >
+              <Button
+                aria-label={
+                  allExpanded ? "Collapse all messages" : "Expand all messages"
+                }
+                onClick={toggleAll}
+                size="iconXs"
+                variant="ghostMuted"
+              >
+                {allExpanded ? (
+                  <ChevronsDownUpIcon className="size-3.5" />
+                ) : (
+                  <ChevronsUpDownIcon className="size-3.5" />
+                )}
+              </Button>
+            </Tooltip>
+          </div>
+        )}
+
+        <ul className="pt-1">
+          {organizedMessages.map(({ message, draftMessages }) => {
+            const defaultComposeMode = getDefaultComposeMode({
+              autoOpenMode:
+                autoOpenForwardForMessageId === message.id
+                  ? "forward"
+                  : autoOpenReplyForMessageId === message.id
+                    ? "reply"
+                    : undefined,
+              localDraftMode: message.labelIds?.includes(GmailLabel.DRAFT)
+                ? undefined
+                : getLocalDraftMode(localDrafts, message.id),
+              recoveredReply:
+                recoveredReply?.messageId === message.id
+                  ? recoveredReply
+                  : undefined,
+            });
+            return (
+              <EmailMessage
+                bodyAvailable={!missingBodyIds?.has(message.id)}
+                missingBodyIds={missingBodyIds}
+                onNavigateMessage={
+                  enableMessageNavigation
+                    ? (direction) =>
+                        selectRelativeMessage(direction, message.id)
+                    : undefined
+                }
+                selected={
+                  enableMessageNavigation
+                    ? message.id === selectedId
+                    : undefined
+                }
+                onSelect={
+                  enableMessageNavigation
+                    ? () => setSelectedMessageId(message.id)
+                    : undefined
+                }
+                defaultComposeMode={defaultComposeMode}
+                draftMessages={draftMessages}
+                expanded={expanded(
+                  message.id,
+                  Boolean(defaultComposeMode) || draftMessages.length > 0,
+                )}
+                hasDraft={draftMessages.length > 0 || hasLocalDraft(message.id)}
+                key={`${message.id}:${recoveredReply?.messageId === message.id ? recoveredReply.version : 0}`}
+                message={message}
+                menu={renderMessageMenu?.(message)}
+                onOpenSenderContext={onOpenSenderContext}
+                onMarkDone={onMarkDone}
+                onSendSuccess={(messageId, sentThreadId) => {
+                  setExpansionOverrides((prev) =>
+                    new Map(prev).set(messageId, true),
+                  );
+
+                  onSendSuccess?.(messageId, sentThreadId);
+                }}
+                // A one-message thread has nothing to collapse back to.
+                onToggle={
+                  organizedMessages.length === 1
+                    ? undefined
+                    : () => {
+                        setExpansionOverrides((prev) =>
+                          new Map(prev).set(
+                            message.id,
+                            !expanded(
+                              message.id,
+                              Boolean(defaultComposeMode) ||
+                                draftMessages.length > 0,
+                            ),
+                          ),
+                        );
+                      }
+                }
+                refetch={refetch}
+                sentMessageOpen={sentMessageOpens?.opens[message.id]}
+                showReplyButton={
+                  showReplyButton &&
+                  !message.labelIds?.includes(GmailLabel.DRAFT)
+                }
+              />
+            );
+          })}
+        </ul>
+        {threadId && (
+          <ThreadDeliveryStatus
+            emailAccountId={emailAccountId}
+            canEditReply={showReplyButton}
+            threadId={threadId}
+            messageIds={messages.map((message) => message.id)}
+            refetch={refetch}
+            onEditReply={(messageId, mode) => {
+              setExpansionOverrides((previous) =>
+                new Map(previous).set(messageId, true),
+              );
+              setRecoveredReply((previous) => ({
+                messageId,
+                mode,
+                version: (previous?.version ?? 0) + 1,
+              }));
+            }}
+          />
+        )}
+      </div>
+    </OpenedConversationAttachments>
+  );
+}
+
+function getLocalDraftMode(drafts: StoredReplyDraft[], messageId: string) {
+  const latest = drafts
+    .filter(
+      (draft) =>
+        draft.messageId === messageId ||
+        draft.messageId === getReplyDraftSessionId(messageId, "reply") ||
+        draft.messageId === getReplyDraftSessionId(messageId, "forward"),
+    )
+    .sort((left, right) => right.updatedAt - left.updatedAt)[0];
+  if (!latest) return;
+  return latest.messageId === getReplyDraftSessionId(messageId, "forward")
+    ? ("forward" as const)
+    : getReplyDraftMode(latest);
+}
+
+function getDefaultComposeMode({
+  autoOpenMode,
+  localDraftMode,
+  recoveredReply,
+}: {
+  autoOpenMode?: ReplyDraftMode;
+  localDraftMode?: ReplyDraftMode;
+  recoveredReply?: { mode: ReplyDraftMode };
+}) {
+  if (recoveredReply) return recoveredReply.mode;
+  if (autoOpenMode) return autoOpenMode;
+  return localDraftMode;
+}
+
+// Drafts without reply headers still belong to this conversation. Keep each
+// composer, falling back to the latest message when its parent is unavailable.
+export function organizeThreadMessages(messages: ThreadMessage[]) {
+  const drafts: ThreadMessage[] = [];
+  const regularMessages: ThreadMessage[] = [];
+
+  for (const message of messages) {
+    if (message.labelIds?.includes(GmailLabel.DRAFT)) drafts.push(message);
+    else regularMessages.push(message);
+  }
+
+  if (regularMessages.length === 0) {
+    return sortDraftsOldestFirst(drafts).map((draft) => ({
+      message: draft,
+      draftMessages: [draft],
+    }));
+  }
+
+  const messagesByHeaderId = new Map<string, ThreadMessage>();
+  for (const message of regularMessages) {
+    const headerId = message.headers["message-id"];
+    if (headerId && !messagesByHeaderId.has(headerId)) {
+      messagesByHeaderId.set(headerId, message);
+    }
+  }
+  const draftsByMessageId = new Map<string, ThreadMessage[]>();
+  for (const draft of drafts) {
+    const parentId =
+      draft.headers.references?.trim().split(/\s+/).at(-1) ||
+      draft.headers["in-reply-to"]?.trim();
+    const parent = parentId ? messagesByHeaderId.get(parentId) : undefined;
+    const target = parent ?? regularMessages.at(-1);
+    if (!target) continue;
+    const existing = draftsByMessageId.get(target.id);
+    if (existing) existing.push(draft);
+    else draftsByMessageId.set(target.id, [draft]);
+  }
+
+  return regularMessages.map((message) => ({
+    message,
+    draftMessages: sortDraftsOldestFirst(
+      draftsByMessageId.get(message.id) ?? [],
+    ),
+  }));
+}
+
+function sortDraftsOldestFirst(drafts: ThreadMessage[]) {
+  return [...drafts].sort(
+    (left, right) => draftRecency(left) - draftRecency(right),
+  );
+}
+
+function draftRecency(draft: ThreadMessage) {
+  const value = draft.internalDate ?? draft.headers.date;
+  const time = internalDateToDate(value, { fallbackToNow: false }).getTime();
+  return Number.isNaN(time) ? 0 : time;
+}
