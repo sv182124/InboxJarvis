@@ -28,24 +28,11 @@ Connect to your VPS and install:
 
 ### 2. Setup and Configure
 
-The easiest way to get started is with the Inbox Zero CLI. You can either use it standalone or from within the cloned repo.
-
-**Option A: Standalone (no clone needed)**
+Use the setup CLI from the InboxJarvis checkout:
 
 ```bash
-npx @inbox-zero/cli setup
-```
-
-This downloads the Docker Compose file and `.env` template automatically.
-Recommended choices for first-time self-hosting:
-- PostgreSQL/Redis: **Docker Compose**
-- Full stack: **Yes, everything in Docker** (especially when running via standalone `npx`)
-
-**Option B: From the cloned repo**
-
-```bash
-git clone https://github.com/elie222/inbox-zero.git
-cd inbox-zero
+git clone https://github.com/sv182124/InboxJarvis.git
+cd InboxJarvis
 corepack enable
 pnpm install
 pnpm run setup
@@ -58,12 +45,12 @@ The setup wizard will walk you through configuring Google and/or Microsoft OAuth
 If you have the [gcloud CLI](https://cloud.google.com/sdk/docs/install) installed, you can automate API enabling and Pub/Sub setup:
 
 ```bash
-npx @inbox-zero/cli setup-google --project-id YOUR_PROJECT_ID --domain yourdomain.com
+pnpm exec tsx packages/cli/src/main.ts setup-google --project-id YOUR_PROJECT_ID --domain yourdomain.com
 ```
 
-This works whether or not you have cloned the repository. If you installed the CLI globally, use `inbox-zero setup-google` with the same flags.
+Run this command from the repository root after installing dependencies.
 
-The command enables required APIs, creates the Pub/Sub topic and subscription, and guides you through OAuth credential creation. It prints environment variables for you to add to your `.env`; it does not require a repo checkout.
+The command enables required APIs, creates the Pub/Sub topic and subscription, and guides you through OAuth credential creation. It prints environment variables for you to add to your `.env`; it uses the source checkout.
 
 You can also copy `.env.example` to `.env` and set the values yourself.
 
@@ -90,7 +77,7 @@ Pull and start the services with your domain:
 NEXT_PUBLIC_BASE_URL=https://yourdomain.com docker compose --profile all up -d
 ```
 
-The pre-built Docker image is hosted at `ghcr.io/elie222/inbox-zero:latest` and will be automatically pulled.
+The default prebuilt image, `ghcr.io/elie222/inbox-zero:latest`, is published by upstream Inbox Zero. It does not contain InboxJarvis source changes. To run this checkout, follow **Building from Source** below and use your locally built image.
 
 **Important**: Compose-time `${...}` values are resolved before service-level `env_file` entries are loaded. If you're running from a cloned repo, make sure Compose can see the same values as the app by linking or copying `apps/web/.env` to the repo root as `.env`. The CLI setup does this automatically for the default configuration and preserves existing user-managed root files. Copied files are refreshed only while their contents match the last CLI-written version; changed copies and retargeted links are preserved with a warning. For manual setup, run `ln -s apps/web/.env .env` once from the repo root before `docker compose up`. If a root `.env` already exists, review it before replacing it, or use `docker compose --env-file apps/web/.env --profile all up -d`. Shell environment values still take precedence.
 
@@ -185,7 +172,7 @@ Replace `YOUR_CRON_SECRET` with the value of `CRON_SECRET` from your `.env` file
 
 ## Optional: Background Job Backends
 
-Inbox Zero supports multiple background job backends for self-hosted deployments:
+InboxJarvis supports multiple background job backends for self-hosted deployments:
 
 - **QStash**: best when you want a managed queue and are already using Upstash.
 - **BullMQ worker**: best when you're running Docker or another long-lived environment and want a local durable queue backed by Redis.
@@ -235,14 +222,14 @@ This runs a separate worker process that pulls jobs from Redis and forwards them
 
 By default the worker subscribes to the built-in queues. If you need to tune which queues it listens to, or adjust concurrency, you can override `WORKER_QUEUES` in your environment.
 
-## Building from Source (Optional)
+## Building from Source
 
-If you prefer to build the image yourself instead of using the pre-built one:
+Build this checkout to include the InboxJarvis changes:
 
 ```bash
 # Clone the repository
-git clone https://github.com/elie222/inbox-zero.git
-cd inbox-zero
+git clone https://github.com/sv182124/InboxJarvis.git
+cd InboxJarvis
 
 # Install dependencies and configure environment (auto-generates secrets)
 corepack enable
@@ -250,9 +237,26 @@ pnpm install
 pnpm run setup
 nano apps/web/.env
 
-# Build and start
-docker compose build
-NEXT_PUBLIC_BASE_URL=https://yourdomain.com docker compose --profile all up -d
+# Build this source checkout
+docker build -f docker/Dockerfile.local -t inboxjarvis:local .
+```
+
+Create `docker-compose.inboxjarvis.yml` to select your locally built image:
+
+```yaml
+services:
+  web:
+    image: inboxjarvis:local
+    pull_policy: never
+  worker:
+    image: inboxjarvis:local
+    pull_policy: never
+```
+
+Start the stack with that override:
+
+```bash
+NEXT_PUBLIC_BASE_URL=https://yourdomain.com docker compose --env-file apps/web/.env -f docker-compose.yml -f docker-compose.inboxjarvis.yml --profile all up -d
 ```
 
 **Note**: Building from source requires significantly more resources (4GB+ RAM recommended) and takes longer than pulling the pre-built image.

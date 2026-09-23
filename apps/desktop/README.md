@@ -1,19 +1,19 @@
 # Desktop app
 
-Electron shell for the hosted Inbox Zero web app.
+Electron shell for the InboxJarvis web app.
 
 ## Run
 
-Against production:
+Start the web app at http://localhost:3000, then run:
 
 ```sh
 pnpm --filter @inboxzero/desktop dev
 ```
 
-Against a local web app:
+To use another deployment, set its URL:
 
 ```sh
-INBOX_ZERO_APP_URL=http://localhost:3000 pnpm --filter @inboxzero/desktop dev
+INBOX_ZERO_APP_URL=https://your-domain.example pnpm --filter @inboxzero/desktop dev
 ```
 
 Sign-in uses the system browser and returns through `inboxzero://`. The web app's `DESKTOP_AUTH_ORIGIN` defaults to this scheme.

@@ -8,7 +8,7 @@ import {
   getMarkdownForPath,
   markdownResponse,
 } from "@/utils/agent-markdown/content";
-import { BRAND_NAME, SUPPORT_EMAIL } from "@/utils/branding";
+import { BRAND_NAME, SUPPORT_CONTACT } from "@/utils/branding";
 
 export function proxy(request: NextRequest) {
   if (isNextInternalRequest(request)) {
@@ -26,7 +26,7 @@ export function proxy(request: NextRequest) {
   const pageMarkdown = getMarkdownForPath(
     request.nextUrl.pathname,
     request.nextUrl.origin,
-    { brandName: BRAND_NAME, supportEmail: SUPPORT_EMAIL },
+    { brandName: BRAND_NAME, supportEmail: SUPPORT_CONTACT },
   );
   if (pageMarkdown) {
     return markdownResponse(pageMarkdown);

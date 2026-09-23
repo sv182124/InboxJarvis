@@ -1,13 +1,13 @@
-# Inbox Zero Slack App Manifest
+# InboxJarvis Slack App Manifest
 #
 # Use this to create a Slack app via: Create New App > From a manifest
-# Replace YOUR_DOMAIN with your actual domain (e.g. app.inboxzero.com or your-ngrok-domain.ngrok-free.app)
+# Replace YOUR_DOMAIN with your actual domain (e.g. app.example.com or your-ngrok-domain.ngrok-free.app)
 
 display_information:
-  name: Inbox Zero
+  name: InboxJarvis
   description: AI executive assistant
   long_description: |
-    Inbox Zero is an AI email assistant that lives in Slack. Chat with it to get summaries, draft replies, triage your inbox, and stay on top of important emails — without switching apps.
+    InboxJarvis is an AI email assistant that lives in Slack. Chat with it to get summaries, draft replies, triage your inbox, and stay on top of important emails — without switching apps.
 
     Features:
     - DM or @mention the bot to ask questions about your inbox
@@ -16,7 +16,6 @@ display_information:
     - Automatic attachment filing with notifications
     - AI-powered email automation rules
     - Works with Gmail and Outlook
-    - SOC 2 compliant, open source, and privacy-first
   background_color: "#1a1a2e"
 
 features:
@@ -25,7 +24,7 @@ features:
     messages_tab_enabled: true
     messages_tab_read_only_enabled: false
   bot_user:
-    display_name: Inbox Zero
+    display_name: InboxJarvis
     always_online: true
   slash_commands:
     - command: /summary
@@ -47,7 +46,7 @@ features:
       should_escape: false
     - command: /help
       url: https://YOUR_DOMAIN/api/slack/commands
-      description: See all available Inbox Zero commands
+      description: See all available InboxJarvis commands
       should_escape: false
 
 oauth_config:

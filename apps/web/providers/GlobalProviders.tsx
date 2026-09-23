@@ -1,5 +1,7 @@
 "use client";
 
+import { BRAND_NAME } from "@/utils/branding";
+
 import type React from "react";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
@@ -99,7 +101,7 @@ function ManageServiceWorker() {
           label: "Reload",
           onClick: activateWaitingWorker,
         },
-        description: "Reload Inbox Zero to use the latest version.",
+        description: `Reload ${BRAND_NAME} to use the latest version.`,
         duration: Number.POSITIVE_INFINITY,
         id: DESKTOP_WEB_UPDATE_TOAST_ID,
       });

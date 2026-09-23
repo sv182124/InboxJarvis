@@ -1,4 +1,4 @@
-import { BRAND_NAME, SUPPORT_EMAIL } from "@/utils/branding";
+import { BRAND_NAME, SUPPORT_CONTACT } from "@/utils/branding";
 
 export function getRequiresReconsentDescription(options?: {
   includeSupportText?: boolean;
@@ -7,7 +7,7 @@ export function getRequiresReconsentDescription(options?: {
 
   if (!options?.includeSupportText) return description;
 
-  return `${description} If this error persists please contact support at ${SUPPORT_EMAIL}`;
+  return `${description} If this error persists please contact support at ${SUPPORT_CONTACT}`;
 }
 
 export function getEmailAlreadyLinkedDescription(options?: {
@@ -17,5 +17,5 @@ export function getEmailAlreadyLinkedDescription(options?: {
 
   if (!options?.includeSupportText) return description;
 
-  return `${description} You can use the support chat or email us at ${SUPPORT_EMAIL}.`;
+  return `${description} You can use the support chat or contact us at ${SUPPORT_CONTACT}.`;
 }

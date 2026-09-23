@@ -171,7 +171,7 @@ export function Pricing() {
               </div>
               <Button variant="secondary-two" size="lg" asChild>
                 <Link
-                  href="https://go.getinboxzero.com/sales"
+                  href="https://github.com/sv182124/InboxJarvis/issues"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() =>

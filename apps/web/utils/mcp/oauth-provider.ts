@@ -1,3 +1,4 @@
+import { BRAND_NAME } from "@/utils/branding";
 import { oauthProvider } from "@better-auth/oauth-provider";
 import { APIError } from "better-auth";
 import { createAuthMiddleware } from "better-auth/api";
@@ -23,7 +24,7 @@ export function mcpOAuthPlugins() {
       resources: [
         {
           identifier: getMcpResourceUrl(),
-          name: "Inbox Zero MCP",
+          name: `${BRAND_NAME} MCP`,
           allowedScopes: [...MCP_SCOPES],
         },
       ],

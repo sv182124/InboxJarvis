@@ -1,4 +1,4 @@
-# Inbox Zero Development Container
+# InboxJarvis Development Container
 #
 # Extends Microsoft devcontainer with proper directory permissions for named volumes
 

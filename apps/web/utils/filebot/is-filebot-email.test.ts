@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   isFilebotEmail,
   getFilebotEmail,
+  getFilebotFrom,
   isFilebotNotificationMessage,
   isFilebotConversationMessage,
 } from "./is-filebot-email";
@@ -133,6 +134,17 @@ describe("getFilebotEmail", () => {
 });
 
 describe("isFilebotNotificationMessage", () => {
+  it("recognizes notifications emitted using the current brand", () => {
+    const userEmail = "john@example.com";
+    expect(
+      isFilebotNotificationMessage({
+        userEmail,
+        from: getFilebotFrom({ userEmail }),
+        to: userEmail,
+      }),
+    ).toBe(true);
+  });
+
   it.each([
     {
       name: "reply-to uses the filebot address",

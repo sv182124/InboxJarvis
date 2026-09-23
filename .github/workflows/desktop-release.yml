@@ -136,9 +136,9 @@ jobs:
           echo "Mac output dirs:"
           ls -d release/mac* 2>/dev/null || true
           for app in \
-            "release/mac/Inbox Zero.app" \
-            "release/mac-arm64/Inbox Zero.app" \
-            "release/mac-x64/Inbox Zero.app"
+            "release/mac/InboxJarvis.app" \
+            "release/mac-arm64/InboxJarvis.app" \
+            "release/mac-x64/InboxJarvis.app"
           do
             if [ -d "$app" ]; then
               verify_app "$app"
@@ -198,7 +198,7 @@ jobs:
           else
             TAG="desktop-v$(node -p "require('./apps/desktop/package.json').version")"
           fi
-          TITLE="Inbox Zero Desktop ${TAG#desktop-v}"
+          TITLE="InboxJarvis Desktop ${TAG#desktop-v}"
           node --experimental-strip-types apps/desktop/src/update-feed-cli.ts dist "$TAG"
           shopt -s nullglob
           files=(dist/*.dmg dist/*.zip dist/*.exe dist/*.blockmap dist/latest*.yml)
@@ -265,7 +265,7 @@ jobs:
           else
             gh release create desktop-updates "${feed[@]}" \
               --title "Desktop auto-update feed" \
-              --notes "electron-updater metadata for Inbox Zero Desktop. Installers stay on desktop-v* releases." \
+              --notes "electron-updater metadata for InboxJarvis Desktop. Installers stay on desktop-v* releases." \
               --prerelease \
               --latest=false
           fi

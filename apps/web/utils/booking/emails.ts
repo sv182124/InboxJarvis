@@ -72,6 +72,7 @@ export async function sendBookingConfirmationEmails({
         from: env.RESEND_FROM_EMAIL,
         to: booking.guestEmail,
         emailProps: {
+          baseUrl: env.NEXT_PUBLIC_BASE_URL,
           cancelUrl,
           rescheduleUrl,
           eventTitle: link.title,
@@ -92,6 +93,7 @@ export async function sendBookingConfirmationEmails({
         from: env.RESEND_FROM_EMAIL,
         to: host.email,
         emailProps: {
+          baseUrl: env.NEXT_PUBLIC_BASE_URL,
           eventTitle: link.title,
           formattedTime: hostParts.formattedTime,
           guestEmail: booking.guestEmail,
@@ -150,6 +152,7 @@ export async function sendBookingRescheduledEmails({
         from: env.RESEND_FROM_EMAIL,
         to: booking.guestEmail,
         emailProps: {
+          baseUrl: env.NEXT_PUBLIC_BASE_URL,
           cancelUrl,
           rescheduleUrl,
           eventTitle: link.title,
@@ -173,6 +176,7 @@ export async function sendBookingRescheduledEmails({
         from: env.RESEND_FROM_EMAIL,
         to: host.email,
         emailProps: {
+          baseUrl: env.NEXT_PUBLIC_BASE_URL,
           eventTitle: link.title,
           formattedTime: hostParts.formattedTime,
           previousFormattedTime: formatDateTimeInUserTimezone(
@@ -214,6 +218,7 @@ export async function sendBookingCancellationEmails({
       from: env.RESEND_FROM_EMAIL,
       to: host.email,
       emailProps: {
+        baseUrl: env.NEXT_PUBLIC_BASE_URL,
         eventTitle: link.title,
         formattedTime: formatDateTimeInUserTimezone(
           booking.startTime,

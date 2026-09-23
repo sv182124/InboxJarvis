@@ -4,23 +4,21 @@ description: 'Frequently Asked Questions'
 icon: 'question'
 ---
 
-Answers to common questions about Inbox Zero.
+Answers to common questions about InboxJarvis.
 
 ### How do I add more email addresses to my account?
 
-To connect another mailbox for yourself, open the account switcher at the top of the sidebar and choose **Add or manage accounts**. On the Accounts page, choose **Add Account** and connect the Gmail or Outlook mailbox. You can also open [Settings](https://www.getinboxzero.com/settings) and choose **Add Account** in the Email accounts section.
+To connect another mailbox for yourself, open the account switcher at the top of the sidebar and choose **Add or manage accounts**. On the Accounts page, choose **Add Account** and connect the Gmail or Outlook mailbox. You can also open [Settings](http://localhost:3000/settings) and choose **Add Account** in the Email accounts section.
 
 Each connected mailbox has its own assistant rules and settings. Use the account switcher to move between them.
 
-To share a subscription with another person, create or join an organization instead. In Settings, use **Invite members** under Team. Organization membership and connecting another mailbox are separate actions.
+To work with another person, create or join an organization instead. In Settings, use **Invite members** under Team. Organization membership and connecting another mailbox are separate actions.
 
 ### How do I organize my Gmail inbox with multiple sections?
 
 You have two options for organizing emails by type in Gmail:
 
-1. **Use the [Inbox Zero Tabs Extension](/essentials/inbox-zero-tabs-extension)** - Our free browser extension adds custom tabs to Gmail, letting you organize emails by type (newsletters, receipts, to reply, etc.). It works great with our AI assistant which can automatically label emails for the tabs.
-
-   ![Inbox Zero Tabs Extension](/images/extension.png)
+1. **Use the [optional upstream Tabs extension](/essentials/inbox-zero-tabs-extension)** if it supports your deployment. InboxJarvis does not publish this extension.
 
 2. **Use Gmail's Multiple Inboxes feature**:
    - Go to Gmail Settings → "See all settings" → "Inbox" tab
@@ -35,13 +33,13 @@ You have two options for organizing emails by type in Gmail:
 
 Both options help you see different types of emails at a glance instead of scrolling through one long list.
 
-### How do I cancel my subscription?
+### Does InboxJarvis require a subscription?
 
-Open the account menu at the bottom of the sidebar and choose [Settings](https://www.getinboxzero.com/settings). In the Billing section, click **Manage Subscription** and cancel in the billing portal.
+This repository does not offer a hosted subscription. Your deployment may configure billing features; ask its administrator about any enabled billing portal. Third-party hosting and AI providers have their own charges.
 
 ### How do I delete my account?
 
-Open the account menu at the bottom of the sidebar and choose [Settings](https://www.getinboxzero.com/settings). In the **Delete Account** section, click **Delete Account**.
+Open the account menu at the bottom of the sidebar and choose [Settings](http://localhost:3000/settings). In the **Delete Account** section, click **Delete Account**.
 
 ### How do I revoke permissions to my email account?
 
@@ -50,16 +48,16 @@ To revoke permissions to your email account:
 #### For Gmail accounts
 
 - Visit the [Connections](https://myaccount.google.com/u/0/connections) page in your Google account
-- Search for **Inbox Zero**, click on it, and then click **See Details**
+- Search for the OAuth app name configured by your deployment, click on it, and then click **See Details**
 - Click on the **Remove all access** button
 
 #### For Microsoft/Outlook accounts
 
 - Visit the [App permissions](https://account.microsoft.com/privacy/app-access) page in your Microsoft account, or open [Manage app consent](https://account.live.com/consent/Manage)
-- Find **Inbox Zero** in the list and click on it
+- Find the OAuth app name configured by your deployment in the list and click on it
 - Click **Remove** to revoke access
 
-If you don't see **Inbox Zero** in the list, it means the account is not connected to Inbox Zero.
+The provider may display a different name from InboxJarvis, depending on your OAuth app registration.
 For Gmail, you can check your other accounts by clicking your profile picture in the top right corner and switching accounts.
 
 ### I see an error "You have exceeded the rate limit". How do I fix this?

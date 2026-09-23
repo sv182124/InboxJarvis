@@ -34,7 +34,7 @@ export interface InboxHealthEmailProps {
 
 export default function InboxHealthEmail(props: InboxHealthEmailProps) {
   const {
-    baseUrl = "https://www.getinboxzero.com",
+    baseUrl = "http://localhost:3000",
     emailAccountId,
     unsubscribeToken,
     suggestionCount,
@@ -57,17 +57,17 @@ export default function InboxHealthEmail(props: InboxHealthEmailProps) {
             <Section className="p-8 text-center">
               <Link href={baseUrl} className="text-[15px]">
                 <Img
-                  src={"https://www.getinboxzero.com/icon.png"}
+                  src={new URL("/icon.png", baseUrl).toString()}
                   width="40"
                   height="40"
-                  alt="Inbox Zero"
+                  alt="InboxJarvis"
                   className="mx-auto my-0"
                 />
               </Link>
 
               <Text className="mx-0 mb-8 mt-4 p-0 text-center text-2xl font-normal">
                 <span className="font-semibold tracking-tighter">
-                  Inbox Zero
+                  InboxJarvis
                 </span>
               </Text>
 
@@ -122,7 +122,7 @@ export default function InboxHealthEmail(props: InboxHealthEmailProps) {
 }
 
 InboxHealthEmail.PreviewProps = {
-  baseUrl: "https://www.getinboxzero.com",
+  baseUrl: "http://localhost:3000",
   emailAccountId: "email-account-id",
   unsubscribeToken: "123",
   suggestionCount: 7,

@@ -72,6 +72,8 @@ vi.mock("@ai-sdk/cerebras", () => ({
 
 vi.mock("@/env", () => ({
   env: {
+    NEXT_PUBLIC_BASE_URL: "http://localhost:3000",
+    NEXT_PUBLIC_BRAND_NAME: "InboxJarvis",
     DEFAULT_LLMS: "openrouter:openai/gpt-5.4-mini",
     DEFAULT_OPENROUTER_PROVIDERS: "Google Vertex,Anthropic",
     ECONOMY_LLMS: "openrouter:google/gemini-2.5-flash-preview-05-20",
@@ -519,8 +521,8 @@ describe("Models", () => {
       expect(createGateway).toHaveBeenCalledWith({
         apiKey: "test-ai-gateway-key",
         headers: {
-          "http-referer": "https://www.getinboxzero.com",
-          "x-title": "Inbox Zero",
+          "http-referer": "http://localhost:3000",
+          "x-title": "InboxJarvis",
         },
       });
     });

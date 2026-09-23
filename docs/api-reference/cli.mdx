@@ -1,25 +1,21 @@
 ---
 title: "CLI"
-description: "Use the Inbox Zero API CLI from npm or npx."
+description: "Use the InboxJarvis API CLI from this source checkout."
 ---
 
-Use the Inbox Zero API CLI when you want a thin wrapper around the public API for scripts, bots, or local automation.
+Use the InboxJarvis API CLI when you want a thin wrapper around the public API for scripts, bots, or local automation.
 
-The package is published to npm as `@inbox-zero/api`, and the executable name is `inbox-zero-api`.
+The package keeps the compatibility name `@inbox-zero/api` and executable name `inbox-zero-api`. Run the version in this repository to use InboxJarvis defaults.
 
-## Run with npx
+## Run from source
 
-Requires Node.js `18+`.
-
-```bash
-npx @inbox-zero/api --help
-```
-
-You can also install it globally:
+After installing this repository's dependencies, run from its root:
 
 ```bash
-npm install -g @inbox-zero/api
+pnpm exec tsx packages/api/src/main.ts --help
 ```
+
+Published `@inbox-zero/api` packages are upstream releases and may use a different default server.
 
 ## Configure access
 
@@ -37,10 +33,10 @@ Supported environment variables:
 Example:
 
 ```bash
-inbox-zero-api rules list
+pnpm exec tsx packages/api/src/main.ts rules list
 ```
 
-`base-url` is optional. The CLI defaults to `https://www.getinboxzero.com` and only needs an override for self-hosted or custom deployments.
+`base-url` is optional. The CLI defaults to `http://localhost:3000` and only needs an override for self-hosted or custom deployments.
 
 Set `INBOX_ZERO_API_KEY` in your shell or secret manager before running commands. Avoid passing API keys as CLI arguments because they can leak into shell history and process listings.
 
@@ -49,53 +45,53 @@ Set `INBOX_ZERO_API_KEY` in your shell or secret manager before running commands
 List rules:
 
 ```bash
-inbox-zero-api rules list
-inbox-zero-api rules list --json
+pnpm exec tsx packages/api/src/main.ts rules list
+pnpm exec tsx packages/api/src/main.ts rules list --json
 ```
 
 Get a rule:
 
 ```bash
-inbox-zero-api rules get rule_123 --json
+pnpm exec tsx packages/api/src/main.ts rules get rule_123 --json
 ```
 
 Create a rule from JSON:
 
 ```bash
-inbox-zero-api rules create --file rule.json
-cat rule.json | inbox-zero-api rules create --file -
+pnpm exec tsx packages/api/src/main.ts rules create --file rule.json
+cat rule.json | pnpm exec tsx packages/api/src/main.ts rules create --file -
 ```
 
 Update a rule from JSON:
 
 ```bash
-cat rule.json | inbox-zero-api rules update rule_123 --file -
+cat rule.json | pnpm exec tsx packages/api/src/main.ts rules update rule_123 --file -
 ```
 
 Delete a rule:
 
 ```bash
-inbox-zero-api rules delete rule_123
+pnpm exec tsx packages/api/src/main.ts rules delete rule_123
 ```
 
 Read stats:
 
 ```bash
-inbox-zero-api stats by-period --period week --json
-inbox-zero-api stats response-time --json
+pnpm exec tsx packages/api/src/main.ts stats by-period --period week --json
+pnpm exec tsx packages/api/src/main.ts stats response-time --json
 ```
 
 Unsubscribe from a sender:
 
 ```bash
-inbox-zero-api senders unsubscribe news@example.com
-inbox-zero-api senders unsubscribe news@example.com --json
+pnpm exec tsx packages/api/src/main.ts senders unsubscribe news@example.com
+pnpm exec tsx packages/api/src/main.ts senders unsubscribe news@example.com --json
 ```
 
 Fetch the live OpenAPI document:
 
 ```bash
-inbox-zero-api openapi --json
+pnpm exec tsx packages/api/src/main.ts openapi --json
 ```
 
 For bots, prefer `--json` so the output is stable and machine-readable.

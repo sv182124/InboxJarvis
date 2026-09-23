@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Inbox Zero Documentation",
+  "name": "InboxJarvis Documentation",
   "colors": {
     "primary": "#2563eb",
     "light": "#60a5fa",
@@ -188,14 +188,9 @@
           "icon": "clock-rotate-left"
         },
         {
-          "anchor": "Community",
-          "href": "https://getinboxzero.com/discord",
-          "icon": "discord"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://www.getinboxzero.com/blog",
-          "icon": "newspaper"
+          "anchor": "GitHub",
+          "href": "https://github.com/sv182124/InboxJarvis",
+          "icon": "github"
         }
       ]
     }
@@ -210,21 +205,19 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:support@getinboxzero.com"
+        "label": "Issues",
+        "href": "https://github.com/sv182124/InboxJarvis/issues"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://www.getinboxzero.com/welcome"
+      "label": "Open local app",
+      "href": "http://localhost:3000"
     }
   },
   "footer": {
     "socials": {
-      "twitter": "https://www.getinboxzero.com/twitter",
-      "github": "https://www.getinboxzero.com/github",
-      "linkedin": "https://www.getinboxzero.com/linkedin"
+      "github": "https://github.com/sv182124/InboxJarvis"
     }
   }
 }

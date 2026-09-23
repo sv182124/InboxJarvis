@@ -1,5 +1,7 @@
 "use client";
 
+import { env } from "@/env";
+
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import {
@@ -38,7 +40,7 @@ import {
   type Slot,
 } from "./booking-helpers";
 
-const BRAND_HOMEPAGE_URL = "https://www.getinboxzero.com";
+const BRAND_HOMEPAGE_URL = env.NEXT_PUBLIC_BASE_URL;
 
 type BookingLink = Omit<GetPublicBookingLinkResponse, "locationValue"> & {
   locationValue: string | null;

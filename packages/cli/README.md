@@ -1,29 +1,24 @@
-# @inbox-zero/cli
+# InboxJarvis setup CLI
 
-CLI tool for running [Inbox Zero](https://www.getinboxzero.com) - an open-source AI email assistant.
+CLI tool for running [InboxJarvis](https://github.com/sv182124/InboxJarvis) - an open-source AI email assistant.
 
-## Installation
+## Run from this repository
 
-### Homebrew (macOS/Linux)
+Install the repository dependencies, then run these commands from the repository root:
 
 ```bash
-brew install inbox-zero/inbox-zero/inbox-zero
+pnpm setup
 ```
 
-### Manual Installation
+Follow the printed commands for the mode you select. For production Docker mode,
+`pnpm start:cli` starts the configured stack. The app opens at
+[localhost:3000](http://localhost:3000). The package name, built
+`inbox-zero` command, and existing configuration paths are retained for compatibility.
 
-Download the binary for your platform from [releases](https://github.com/elie222/inbox-zero/releases) and add to your PATH.
-
-## Quick Start
+To run any setup command from source:
 
 ```bash
-# Configure Inbox Zero (interactive)
-inbox-zero setup
-
-# Start Inbox Zero
-inbox-zero start
-
-# Open http://localhost:3000
+pnpm exec tsx packages/cli/src/main.ts --help
 ```
 
 ## Commands
@@ -44,10 +39,10 @@ Generates Terraform files for AWS deployment (ECS Fargate, RDS, optional Redis).
 
 ```bash
 # Generate Terraform files in ./terraform (interactive)
-inbox-zero setup-terraform
+pnpm exec tsx packages/cli/src/main.ts setup-terraform
 
 # Non-interactive mode (values read from flags/env vars)
-inbox-zero setup-terraform --yes --region us-east-1
+pnpm exec tsx packages/cli/src/main.ts setup-terraform --yes --region us-east-1
 ```
 
 The generated Terraform uses AWS SSM Parameter Store for secrets and outputs the
@@ -60,13 +55,13 @@ Vercel Marketplace integrations, and seeds the required environment variables.
 
 ```bash
 # Interactive Vercel setup
-inbox-zero setup-vercel
+pnpm exec tsx packages/cli/src/main.ts setup-vercel
 
 # Skip provisioning an integration you already have
-inbox-zero setup-vercel --skip-neon
+pnpm exec tsx packages/cli/src/main.ts setup-vercel --skip-neon
 
 # Non-interactive setup with defaults and placeholder provider credentials
-inbox-zero setup-vercel --yes
+pnpm exec tsx packages/cli/src/main.ts setup-vercel --yes
 ```
 
 Use `--deploy` if you want the CLI to trigger `vercel deploy --prod` after setup.
@@ -76,12 +71,12 @@ Use `--deploy` if you want the CLI to trigger `vercel deploy --prod` after setup
 Pulls the latest Docker image and starts all containers:
 - PostgreSQL database
 - Redis cache
-- Inbox Zero web app
+- InboxJarvis web app
 - Cron job for email sync
 
 ```bash
-inbox-zero start           # Start in background
-inbox-zero start --no-detach  # Start in foreground
+pnpm exec tsx packages/cli/src/main.ts start           # Start in background
+pnpm exec tsx packages/cli/src/main.ts start --no-detach  # Start in foreground
 ```
 
 ### `inbox-zero stop`
@@ -89,7 +84,7 @@ inbox-zero start --no-detach  # Start in foreground
 Stops all running containers.
 
 ```bash
-inbox-zero stop
+pnpm exec tsx packages/cli/src/main.ts stop
 ```
 
 ### `inbox-zero logs`
@@ -97,9 +92,9 @@ inbox-zero stop
 View container logs.
 
 ```bash
-inbox-zero logs            # Show last 100 lines
-inbox-zero logs -f         # Follow logs
-inbox-zero logs -n 500     # Show last 500 lines
+pnpm exec tsx packages/cli/src/main.ts logs            # Show last 100 lines
+pnpm exec tsx packages/cli/src/main.ts logs -f         # Follow logs
+pnpm exec tsx packages/cli/src/main.ts logs -n 500     # Show last 500 lines
 ```
 
 ### `inbox-zero status`
@@ -108,14 +103,15 @@ Show status of running containers.
 
 ### `inbox-zero update`
 
-Pull the latest Inbox Zero image and optionally restart.
+Pull the latest InboxJarvis image and optionally restart.
 
 ```bash
-inbox-zero update
+pnpm exec tsx packages/cli/src/main.ts update
 ```
 
 ## Requirements
 
+- Node.js 24 and the repository dependencies
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
 - OAuth credentials from Google and/or Microsoft
 - An LLM API key (Anthropic, OpenAI, Google, etc.)
@@ -126,7 +122,7 @@ All configuration is stored in `~/.inbox-zero/`:
 - `.env` - Environment variables
 - `docker-compose.yml` - Docker Compose configuration
 
-To reconfigure, run `inbox-zero setup` again.
+To reconfigure, run `pnpm setup` from the repository root again.
 
 ## License
 

@@ -1,6 +1,6 @@
 import { app, Menu, type MenuItemConstructorOptions } from "electron";
 
-const PRODUCT_NAME = "Inbox Zero";
+const PRODUCT_NAME = "InboxJarvis";
 
 export function configureDesktopApplicationMenu({
   checkForUpdates,

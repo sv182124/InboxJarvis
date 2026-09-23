@@ -1,7 +1,7 @@
 appId: com.getinboxzero.desktop
-productName: Inbox Zero
+productName: InboxJarvis
 copyright: Copyright © Inbox Zero
-artifactName: Inbox-Zero-${version}-${os}-${arch}.${ext}
+artifactName: InboxJarvis-${version}-${os}-${arch}.${ext}
 directories:
   output: release
   buildResources: build
@@ -11,7 +11,7 @@ files:
 asar: true
 npmRebuild: false
 protocols:
-  - name: Inbox Zero
+  - name: InboxJarvis
     schemes:
       - inboxzero
 linux:
@@ -48,4 +48,4 @@ nsis:
   allowToChangeInstallationDirectory: false
 publish:
   provider: generic
-  url: https://github.com/elie222/inbox-zero/releases/download/desktop-updates
+  url: https://github.com/sv182124/InboxJarvis/releases/download/desktop-updates

@@ -5,7 +5,7 @@ import {
   parseDesktopWindowStates,
 } from "./windows";
 
-const origin = "https://www.getinboxzero.com";
+const origin = "http://localhost:3000";
 const mailBounds = {
   x: 120,
   y: 80,

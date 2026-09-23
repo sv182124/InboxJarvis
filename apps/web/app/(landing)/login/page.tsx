@@ -19,9 +19,11 @@ import { MutedText } from "@/components/Typography";
 import { normalizeInternalPath } from "@/utils/path";
 import {
   BRAND_NAME,
-  SUPPORT_EMAIL,
+  SUPPORT_CONTACT,
   getBrandTitle,
   getPossessiveBrandName,
+  LICENSE_URL,
+  SECURITY_URL,
 } from "@/utils/branding";
 
 export const metadata: Metadata = {
@@ -66,19 +68,19 @@ export default async function AuthenticationPage(props: {
 
         {!isSelfHosted ? (
           <MutedText className="px-8 pt-10 text-center">
-            By clicking continue, you agree to our{" "}
+            Review the software{" "}
             <Link
-              href="/terms"
+              href={LICENSE_URL}
               className="underline underline-offset-4 hover:text-foreground"
             >
-              Terms of Service
+              license
             </Link>{" "}
             and{" "}
             <Link
-              href="/privacy"
+              href={SECURITY_URL}
               className="underline underline-offset-4 hover:text-foreground"
             >
-              Privacy Policy
+              security information
             </Link>
             .
           </MutedText>
@@ -181,7 +183,7 @@ function ErrorAlert({ error }: { error: string }) {
       <AlertBasic
         variant="destructive"
         title="Error logging in"
-        description={`There was an error logging in. Please try logging in again. If this error persists please contact support at ${SUPPORT_EMAIL}`}
+        description={`There was an error logging in. Please try logging in again. If this error persists please contact support at ${SUPPORT_CONTACT}`}
       />
       <Suspense>
         <CrispChatLoggedOutVisible />

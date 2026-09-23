@@ -15,10 +15,10 @@ function release(
   return {
     tag_name: tagName,
     prerelease,
-    html_url: `https://github.com/elie222/inbox-zero/releases/tag/${tagName}`,
+    html_url: `https://github.com/sv182124/InboxJarvis/releases/tag/${tagName}`,
     assets: assets.map((name) => ({
       name,
-      browser_download_url: `https://github.com/elie222/inbox-zero/releases/download/${tagName}/${name}`,
+      browser_download_url: `https://github.com/sv182124/InboxJarvis/releases/download/${tagName}/${name}`,
     })),
   };
 }
@@ -26,15 +26,15 @@ function release(
 const DOWNLOADS: DesktopDownloadLinks = {
   version: "0.2.0",
   releaseUrl:
-    "https://github.com/elie222/inbox-zero/releases/tag/desktop-v0.2.0",
+    "https://github.com/sv182124/InboxJarvis/releases/tag/desktop-v0.2.0",
   macArm64Dmg:
-    "https://github.com/elie222/inbox-zero/releases/download/desktop-v0.2.0/Inbox-Zero-0.2.0-mac-arm64.dmg",
+    "https://github.com/sv182124/InboxJarvis/releases/download/desktop-v0.2.0/InboxJarvis-0.2.0-mac-arm64.dmg",
   macX64Dmg:
-    "https://github.com/elie222/inbox-zero/releases/download/desktop-v0.2.0/Inbox-Zero-0.2.0-mac-x64.dmg",
+    "https://github.com/sv182124/InboxJarvis/releases/download/desktop-v0.2.0/InboxJarvis-0.2.0-mac-x64.dmg",
   winX64Exe:
-    "https://github.com/elie222/inbox-zero/releases/download/desktop-v0.2.0/Inbox-Zero-0.2.0-win-x64.exe",
+    "https://github.com/sv182124/InboxJarvis/releases/download/desktop-v0.2.0/InboxJarvis-0.2.0-win-x64.exe",
   winArm64Exe:
-    "https://github.com/elie222/inbox-zero/releases/download/desktop-v0.2.0/Inbox-Zero-0.2.0-win-arm64.exe",
+    "https://github.com/sv182124/InboxJarvis/releases/download/desktop-v0.2.0/InboxJarvis-0.2.0-win-arm64.exe",
 };
 
 describe("pickLatestDesktopRelease", () => {
@@ -43,17 +43,17 @@ describe("pickLatestDesktopRelease", () => {
       release("v2.30.0", ["inbox-zero-cli.tgz"]),
       release("desktop-updates", ["latest-mac.yml"], true),
       release("desktop-v0.1.0", [
-        "Inbox-Zero-0.1.0-mac-arm64.dmg",
-        "Inbox-Zero-0.1.0-mac-arm64.dmg.blockmap",
-        "Inbox-Zero-0.1.0-mac-x64.dmg",
-        "Inbox-Zero-0.1.0-win-x64.exe",
-        "Inbox-Zero-0.1.0-win-arm64.exe",
+        "InboxJarvis-0.1.0-mac-arm64.dmg",
+        "InboxJarvis-0.1.0-mac-arm64.dmg.blockmap",
+        "InboxJarvis-0.1.0-mac-x64.dmg",
+        "InboxJarvis-0.1.0-win-x64.exe",
+        "InboxJarvis-0.1.0-win-arm64.exe",
       ]),
       release("desktop-v0.2.0", [
-        "Inbox-Zero-0.2.0-mac-arm64.dmg",
-        "Inbox-Zero-0.2.0-mac-x64.dmg",
-        "Inbox-Zero-0.2.0-win-x64.exe",
-        "Inbox-Zero-0.2.0-win-arm64.exe",
+        "InboxJarvis-0.2.0-mac-arm64.dmg",
+        "InboxJarvis-0.2.0-mac-x64.dmg",
+        "InboxJarvis-0.2.0-win-x64.exe",
+        "InboxJarvis-0.2.0-win-arm64.exe",
       ]),
     ]);
 
@@ -62,8 +62,8 @@ describe("pickLatestDesktopRelease", () => {
 
   it("picks a newer desktop tag even when GitHub lists an older one first", () => {
     const links = pickLatestDesktopRelease([
-      release("desktop-v0.9.0", ["Inbox-Zero-0.9.0-mac-x64.dmg"]),
-      release("desktop-v0.10.0", ["Inbox-Zero-0.10.0-mac-arm64.dmg"]),
+      release("desktop-v0.9.0", ["InboxJarvis-0.9.0-mac-x64.dmg"]),
+      release("desktop-v0.10.0", ["InboxJarvis-0.10.0-mac-arm64.dmg"]),
     ]);
 
     expect(links?.version).toBe("0.10.0");
@@ -82,9 +82,9 @@ describe("pickLatestDesktopRelease", () => {
   it("skips semver prerelease desktop tags", () => {
     const links = pickLatestDesktopRelease([
       release("desktop-v1.0.0-beta.1", [
-        "Inbox-Zero-1.0.0-beta.1-mac-arm64.dmg",
+        "InboxJarvis-1.0.0-beta.1-mac-arm64.dmg",
       ]),
-      release("desktop-v0.2.0", ["Inbox-Zero-0.2.0-mac-arm64.dmg"]),
+      release("desktop-v0.2.0", ["InboxJarvis-0.2.0-mac-arm64.dmg"]),
     ]);
 
     expect(links?.version).toBe("0.2.0");
@@ -92,8 +92,8 @@ describe("pickLatestDesktopRelease", () => {
 
   it("keeps a stable tag that includes SemVer build metadata", () => {
     const links = pickLatestDesktopRelease([
-      release("desktop-v0.9.0", ["Inbox-Zero-0.9.0-mac-arm64.dmg"]),
-      release("desktop-v1.0.0+build-1", ["Inbox-Zero-1.0.0-mac-arm64.dmg"]),
+      release("desktop-v0.9.0", ["InboxJarvis-0.9.0-mac-arm64.dmg"]),
+      release("desktop-v1.0.0+build-1", ["InboxJarvis-1.0.0-mac-arm64.dmg"]),
     ]);
 
     expect(links?.version).toBe("1.0.0+build-1");

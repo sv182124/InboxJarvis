@@ -4,7 +4,7 @@ import { env } from "@/env";
 import { SafeError } from "@/utils/error";
 
 export const PUBLIC_API_DOCS_URL =
-  "https://docs.getinboxzero.com/api-reference/introduction";
+  "https://github.com/sv182124/InboxJarvis/blob/main/docs/api-reference/introduction.mdx";
 export const PUBLIC_API_OPENAPI_PATH = "/openapi.json";
 
 export type PublicApiErrorCode =

@@ -1,6 +1,6 @@
 apiVersion: v2
 name: inbox-zero
-description: A Helm chart for running Inbox Zero on Kubernetes
+description: A Helm chart for running InboxJarvis on Kubernetes
 type: application
 version: 0.1.0
 appVersion: "latest"
@@ -9,8 +9,8 @@ keywords:
   - email
   - ai
   - nextjs
-home: https://www.getinboxzero.com
+home: https://github.com/sv182124/InboxJarvis
 sources:
-  - https://github.com/elie222/inbox-zero
+  - https://github.com/sv182124/InboxJarvis
 maintainers:
-  - name: Inbox Zero
+  - name: sv182124

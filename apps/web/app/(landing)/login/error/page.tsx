@@ -17,7 +17,7 @@ import { Loading } from "@/components/Loading";
 import { WELCOME_PATH } from "@/utils/config";
 import { CrispChatLoggedOutVisible } from "@/components/CrispChat";
 import { getAndClearAuthErrorCookie } from "@/utils/auth-cookies";
-import { SUPPORT_EMAIL } from "@/utils/branding";
+import { SUPPORT_CONTACT } from "@/utils/branding";
 import {
   getPendingAuthProvider,
   trackAuthFailure,
@@ -100,7 +100,7 @@ function LoginErrorContent() {
 
   const errorInfo = resolvedErrorCode ? errorMessages[resolvedErrorCode] : null;
   const title = errorInfo?.title || "Error Logging In";
-  const supportText = `If this error persists, please use the support chat or email us at ${SUPPORT_EMAIL}.`;
+  const supportText = `If this error persists, please use the support chat or contact us at ${SUPPORT_CONTACT}.`;
   const fallbackDescription = resolvedErrorCode
     ? `Please try signing in again. (Error code: ${resolvedErrorCode}) ${supportText}`
     : `Please try signing in again. ${supportText}`;

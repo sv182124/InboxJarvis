@@ -1,5 +1,6 @@
+import { BRAND_NAME } from "@/utils/branding";
 // Product-facing name of the bot that appears in the participant list.
-export const MEETING_BOT_DISPLAY_NAME = "Inbox Zero Notetaker";
+export const MEETING_BOT_DISPLAY_NAME = `${BRAND_NAME} Notetaker`;
 const MAX_MEETING_BOT_DISPLAY_NAME_LENGTH = 100;
 
 interface TranscriptUtterance {

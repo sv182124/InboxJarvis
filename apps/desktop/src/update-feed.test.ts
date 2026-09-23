@@ -12,13 +12,13 @@ import {
 
 const MAC_YML = `version: 0.1.0
 files:
-  - url: Inbox-Zero-0.1.0-mac-arm64.zip
+  - url: InboxJarvis-0.1.0-mac-arm64.zip
     sha512: abc
     size: 12
-  - url: 'Inbox-Zero-0.1.0-mac-x64.zip'
+  - url: 'InboxJarvis-0.1.0-mac-x64.zip'
     sha512: def
     size: 13
-path: Inbox-Zero-0.1.0-mac-arm64.zip
+path: InboxJarvis-0.1.0-mac-arm64.zip
 sha512: abc
 releaseDate: '2026-08-16T10:00:00.000Z'
 `;
@@ -26,26 +26,26 @@ releaseDate: '2026-08-16T10:00:00.000Z'
 describe("desktop update feed", () => {
   it("points the generic feed at a stable GitHub release tag", () => {
     expect(getDesktopUpdateFeedUrl()).toBe(
-      "https://github.com/elie222/inbox-zero/releases/download/desktop-updates",
+      "https://github.com/sv182124/InboxJarvis/releases/download/desktop-updates",
     );
     expect(getDesktopAssetBaseUrl("desktop-v0.1.0")).toBe(
-      "https://github.com/elie222/inbox-zero/releases/download/desktop-v0.1.0",
+      "https://github.com/sv182124/InboxJarvis/releases/download/desktop-v0.1.0",
     );
   });
 
   it("rewrites relative artifact names to the versioned GitHub release", () => {
     const yaml = rewriteUpdateFeedYaml(
       MAC_YML,
-      "https://github.com/elie222/inbox-zero/releases/download/desktop-v0.1.0/",
+      "https://github.com/sv182124/InboxJarvis/releases/download/desktop-v0.1.0/",
     );
     expect(yaml).toContain(
-      "url: https://github.com/elie222/inbox-zero/releases/download/desktop-v0.1.0/Inbox-Zero-0.1.0-mac-arm64.zip",
+      "url: https://github.com/sv182124/InboxJarvis/releases/download/desktop-v0.1.0/InboxJarvis-0.1.0-mac-arm64.zip",
     );
     expect(yaml).toContain(
-      "url: 'https://github.com/elie222/inbox-zero/releases/download/desktop-v0.1.0/Inbox-Zero-0.1.0-mac-x64.zip'",
+      "url: 'https://github.com/sv182124/InboxJarvis/releases/download/desktop-v0.1.0/InboxJarvis-0.1.0-mac-x64.zip'",
     );
     expect(yaml).toContain(
-      "path: https://github.com/elie222/inbox-zero/releases/download/desktop-v0.1.0/Inbox-Zero-0.1.0-mac-arm64.zip",
+      "path: https://github.com/sv182124/InboxJarvis/releases/download/desktop-v0.1.0/InboxJarvis-0.1.0-mac-arm64.zip",
     );
     expect(yaml).toContain("sha512: abc");
     expect(yaml).toContain("version: 0.1.0");
@@ -53,14 +53,14 @@ describe("desktop update feed", () => {
 
   it("leaves absolute URLs and checksums alone", () => {
     const yaml = rewriteUpdateFeedYaml(
-      `url: https://example.com/Inbox-Zero-0.1.0-mac-arm64.zip
-path: https://example.com/Inbox-Zero-0.1.0-mac-arm64.zip
+      `url: https://example.com/InboxJarvis-0.1.0-mac-arm64.zip
+path: https://example.com/InboxJarvis-0.1.0-mac-arm64.zip
 sha512: abc
 `,
-      "https://github.com/elie222/inbox-zero/releases/download/desktop-v0.1.0",
+      "https://github.com/sv182124/InboxJarvis/releases/download/desktop-v0.1.0",
     );
     expect(yaml).toContain(
-      "url: https://example.com/Inbox-Zero-0.1.0-mac-arm64.zip",
+      "url: https://example.com/InboxJarvis-0.1.0-mac-arm64.zip",
     );
     expect(yaml).toContain("sha512: abc");
   });
@@ -85,11 +85,11 @@ describe("rewriteUpdateFeedFiles", () => {
     expect(
       rewriteUpdateFeedFiles(
         dir,
-        "https://github.com/elie222/inbox-zero/releases/download/desktop-v0.1.0",
+        "https://github.com/sv182124/InboxJarvis/releases/download/desktop-v0.1.0",
       ),
     ).toEqual(["latest-mac.yml"]);
     expect(fs.readFileSync(path.join(dir, "latest-mac.yml"), "utf8")).toContain(
-      "https://github.com/elie222/inbox-zero/releases/download/desktop-v0.1.0/Inbox-Zero-0.1.0-mac-arm64.zip",
+      "https://github.com/sv182124/InboxJarvis/releases/download/desktop-v0.1.0/InboxJarvis-0.1.0-mac-arm64.zip",
     );
     expect(fs.readFileSync(path.join(dir, "notes.txt"), "utf8")).toBe(
       "leave me",

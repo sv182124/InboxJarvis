@@ -9,8 +9,7 @@ import {
   Paragraph,
   SectionHeading,
 } from "@/components/new-landing/common/Typography";
-import { env } from "@/env";
-import { BRAND_NAME } from "@/utils/branding";
+import { BRAND_NAME, SUPPORT_URL } from "@/utils/branding";
 
 const pricingFaqs: {
   question: string;
@@ -39,9 +38,8 @@ const pricingFaqs: {
       "Do you offer discounts for students, nonprofits, or open-source projects?",
     answer: (
       <span>
-        Yes! Send us an{" "}
-        <Anchor href={`mailto:${env.NEXT_PUBLIC_SUPPORT_EMAIL}`}>email</Anchor>{" "}
-        and we&apos;ll set up a discounted plan for you.
+        Yes! Send us an <Anchor href={SUPPORT_URL}>support</Anchor> and
+        we&apos;ll set up a discounted plan for you.
       </span>
     ),
     answerText:
@@ -57,8 +55,8 @@ const pricingFaqs: {
     answer: (
       <span>
         Yes, if you don&apos;t think we provided you with value send us an{" "}
-        <Anchor href={`mailto:${env.NEXT_PUBLIC_SUPPORT_EMAIL}`}>email</Anchor>{" "}
-        within 14 days of upgrading and we&apos;ll refund you.
+        <Anchor href={SUPPORT_URL}>support</Anchor> within 14 days of upgrading
+        and we&apos;ll refund you.
       </span>
     ),
     answerText:
@@ -68,7 +66,7 @@ const pricingFaqs: {
     question: "Need a custom plan for your enterprise?",
     answer: (
       <span>
-        <Anchor href="https://go.getinboxzero.com/sales" newTab>
+        <Anchor href="https://github.com/sv182124/InboxJarvis/issues" newTab>
           Contact our sales team
         </Anchor>{" "}
         for custom pricing, SSO, SCIM, on-premise deployment, and dedicated

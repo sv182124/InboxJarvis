@@ -1,4 +1,6 @@
-# Inbox Zero Helm Chart
+# InboxJarvis Helm Chart
+
+The chart retains its `inbox-zero` resource names for compatibility. Its default `ghcr.io/elie222/inbox-zero` image is published by upstream Inbox Zero. Set `image.repository` and `image.tag` to an image built from this checkout to deploy InboxJarvis changes.
 
 This chart maps the Docker Compose self-hosting stack onto Kubernetes:
 

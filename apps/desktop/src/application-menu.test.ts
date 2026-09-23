@@ -38,12 +38,12 @@ describe("desktop application menu", () => {
     const update = submenu.find((item) => item.label === "Check for Updates…");
     expect(update?.click).toBe(checkForUpdates);
 
-    const about = submenu.find((item) => item.label === "About Inbox Zero");
+    const about = submenu.find((item) => item.label === "About InboxJarvis");
     expect(about?.click).toEqual(expect.any(Function));
     about?.click?.({} as never, {} as never, {} as never);
 
     expect(app.setAboutPanelOptions).toHaveBeenCalledWith({
-      applicationName: "Inbox Zero",
+      applicationName: "InboxJarvis",
       applicationVersion: "0.2.0",
     });
     expect(app.showAboutPanel).toHaveBeenCalledOnce();

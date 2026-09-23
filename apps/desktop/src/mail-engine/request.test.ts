@@ -73,7 +73,7 @@ describe("createOriginMailRequest", () => {
     });
   });
 
-  it("issues mail HTTP against the configured origin, not the SaaS host", async () => {
+  it("issues mail HTTP against the configured origin", async () => {
     const fetchMock = vi.fn(
       async () => new Response(JSON.stringify({ ok: true }), { status: 200 }),
     );
@@ -90,7 +90,6 @@ describe("createOriginMailRequest", () => {
     expect(url).toBe(
       "http://mail.internal.example:8080/api/mail/v1/accounts/acc-1/capabilities",
     );
-    expect(url).not.toContain("getinboxzero.com");
   });
 
   it("returns attachment bytes without parsing them as JSON", async () => {

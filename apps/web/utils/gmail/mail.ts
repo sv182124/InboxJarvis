@@ -1,3 +1,4 @@
+import { BRAND_NAME } from "@/utils/branding";
 import type { gmail_v1 } from "@googleapis/gmail";
 import MailComposer from "nodemailer/lib/mail-composer";
 import type Mail from "nodemailer/lib/mailer";
@@ -94,7 +95,7 @@ const createRawMailMessage = async ({
       headerMessageId: replyToEmail?.headerMessageId || "",
       references: replyToEmail?.references,
     }),
-    headers: { "X-Mailer": "Inbox Zero Web" },
+    headers: { "X-Mailer": `${BRAND_NAME} Web` },
   });
 };
 

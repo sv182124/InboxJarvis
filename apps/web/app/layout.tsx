@@ -21,6 +21,7 @@ import {
   BRAND_NAME,
   SUPPORT_EMAIL,
   toAbsoluteUrl,
+  REPOSITORY_URL,
 } from "@/utils/branding";
 
 const aeonikFont = localFont({
@@ -48,18 +49,6 @@ const jsonLd: WithContext<WebApplication> = {
   description,
   applicationCategory: "ProductivityApplication",
   operatingSystem: "Web Browser",
-  offers: {
-    "@type": "Offer",
-    price: "20.00",
-    priceCurrency: "USD",
-    priceSpecification: {
-      "@type": "UnitPriceSpecification",
-      price: 20,
-      priceCurrency: "USD",
-      billingDuration: "P1M",
-    },
-    availability: "https://schema.org/InStock",
-  },
   featureList: [
     "AI Email Assistant",
     "Email Automation",
@@ -77,10 +66,7 @@ const jsonLd: WithContext<WebApplication> = {
       "@type": "ImageObject",
       url: toAbsoluteUrl(BRAND_ICON_URL),
     },
-    sameAs: [
-      "https://x.com/inboxzero_ai",
-      "https://github.com/elie222/inbox-zero",
-    ],
+    sameAs: [REPOSITORY_URL],
     ...(SUPPORT_EMAIL
       ? {
           contactPoint: {
@@ -90,14 +76,6 @@ const jsonLd: WithContext<WebApplication> = {
           },
         }
       : {}),
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "131 Continental Dr, Suite 305",
-      addressLocality: "Newark",
-      addressRegion: "DE",
-      postalCode: "19713",
-      addressCountry: "US",
-    },
   },
 };
 
@@ -115,7 +93,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    creator: "@inboxzero_ai",
   },
   metadataBase: new URL(env.NEXT_PUBLIC_BASE_URL),
   // issues with robots.txt: https://github.com/vercel/next.js/issues/58615#issuecomment-1852457285

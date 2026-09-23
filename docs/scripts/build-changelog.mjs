@@ -8,7 +8,7 @@ const outputFile = join(__dirname, "..", "changelog.mdx");
 
 const HEADER = `---
 title: "Changelog"
-description: "Latest updates and improvements to Inbox Zero"
+description: "InboxJarvis project updates"
 ---
 
 `;

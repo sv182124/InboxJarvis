@@ -35,12 +35,12 @@ export function CallToAction({
       {showSalesButton ? (
         <Button variant="secondary-two" size={buttonSize} asChild>
           <Link
-            href="/sales"
+            href="/support"
             target="_blank"
             onClick={() => landingPageAnalytics.talkToSalesClicked(posthog)}
           >
             <Chat />
-            Talk to sales
+            Get help
           </Link>
         </Button>
       ) : null}

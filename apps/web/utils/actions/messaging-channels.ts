@@ -1,5 +1,7 @@
 "use server";
 
+import { BRAND_NAME } from "@/utils/branding";
+
 import { actionClient } from "@/utils/actions/safe-action";
 import {
   updateSlackRouteBody,
@@ -259,7 +261,7 @@ export const linkSlackWorkspaceAction = actionClient
 
       if (!slackUser) {
         throw new SafeError(
-          "Could not find your Slack account. Your Inbox Zero email may not match your Slack profile email.",
+          `Could not find your Slack account. Your ${BRAND_NAME} email may not match your Slack profile email.`,
         );
       }
 

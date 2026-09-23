@@ -2,6 +2,7 @@ import { Link, Section, Text } from "@react-email/components";
 import { BookingEmailLayout } from "./components/booking-email-layout";
 
 export type GuestBookingConfirmationEmailProps = {
+  baseUrl?: string;
   cancelUrl: string;
   rescheduleUrl: string;
   eventTitle: string;
@@ -19,6 +20,7 @@ export type GuestBookingConfirmationEmailProps = {
 };
 
 export default function GuestBookingConfirmationEmail({
+  baseUrl = "http://localhost:3000",
   cancelUrl,
   rescheduleUrl,
   eventTitle,
@@ -37,6 +39,7 @@ export default function GuestBookingConfirmationEmail({
   const meetingTitle = `${eventTitle} with ${hostName}`;
   return (
     <BookingEmailLayout
+      baseUrl={baseUrl}
       headline={`Your meeting with ${hostName} is confirmed`}
       subline={formattedTime}
     >
@@ -157,14 +160,13 @@ export default function GuestBookingConfirmationEmail({
 }
 
 GuestBookingConfirmationEmail.PreviewProps = {
-  cancelUrl:
-    "https://www.getinboxzero.com/book/cancel/example?token=test-token",
+  cancelUrl: "http://localhost:3000/book/cancel/example?token=test-token",
   rescheduleUrl:
-    "https://www.getinboxzero.com/book/reschedule/example?token=test-token",
+    "http://localhost:3000/book/reschedule/example?token=test-token",
   eventTitle: "15 min intro",
   formattedTime: "Thu, Nov 12, 2026 · 10:00 AM",
   guestName: "Sarah Chen",
-  hostName: "Elie",
+  hostName: "Alex",
   location: "Google Meet",
   dateMonth: "NOV",
   dateDay: "12",
@@ -172,6 +174,6 @@ GuestBookingConfirmationEmail.PreviewProps = {
   timeRange: "10:00 AM – 10:15 AM",
   timezoneLabel: "Asia/Jerusalem",
   guestNote:
-    "Hey Elie, building a B2B email tool, would love to chat about your AI rules approach.",
+    "Hey Alex, building a B2B email tool, would love to chat about your AI rules approach.",
   meetingLink: "https://meet.google.com/abc-defg-hij",
 } satisfies GuestBookingConfirmationEmailProps;

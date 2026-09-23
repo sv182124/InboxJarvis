@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Copy } from "lucide-react";
 import { toastSuccess } from "@/components/Toast";
-import { BRAND_NAME, SUPPORT_EMAIL } from "@/utils/branding";
+import { BRAND_NAME, SUPPORT_CONTACT } from "@/utils/branding";
 
 interface RequestAccessDialogProps {
   integrationName?: string;
@@ -35,8 +35,8 @@ export function RequestAccessDialog({
     : `Hi,\n\nI'm interested in using the ${integrationName} integration with ${BRAND_NAME}.\n\nCould you please let me know when this integration will be available?\n\nThank you!`;
 
   const handleCopyEmail = async () => {
-    await navigator.clipboard.writeText(SUPPORT_EMAIL);
-    toastSuccess({ description: "Email copied to clipboard" });
+    await navigator.clipboard.writeText(SUPPORT_CONTACT);
+    toastSuccess({ description: "Support contact copied to clipboard" });
   };
 
   const handleCopyMessage = async () => {
@@ -59,16 +59,16 @@ export function RequestAccessDialog({
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
             {isGenericRequest
-              ? "Send us an email to request a new integration."
-              : "Send us an email to request access to this integration."}
+              ? "Contact support to request a new integration."
+              : "Contact support to request access to this integration."}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
           <div>
-            <div className="text-sm font-medium">Email</div>
+            <div className="text-sm font-medium">Support</div>
             <div className="flex items-center gap-2 mt-1">
               <code className="flex-1 rounded bg-muted px-3 py-2 text-sm">
-                {SUPPORT_EMAIL}
+                {SUPPORT_CONTACT}
               </code>
               <Button size="sm" variant="outline" onClick={handleCopyEmail}>
                 <Copy className="h-4 w-4" />

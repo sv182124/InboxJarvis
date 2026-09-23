@@ -1,5 +1,7 @@
 "use client";
 
+import { SUPPORT_URL, SUPPORT_CONTACT } from "@/utils/branding";
+
 import Image from "next/image";
 import { AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,7 +13,6 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty";
 import { logOut } from "@/utils/user";
-import { env } from "@/env";
 
 // TODO would be better to have a consistent definition here. didn't want to break things.
 export function ErrorDisplay(props: {
@@ -45,10 +46,7 @@ export function ErrorDisplay(props: {
           <EmptyTitle>There was an error</EmptyTitle>
           <EmptyDescription>
             Please refresh or contact support at{" "}
-            <a href={`mailto:${env.NEXT_PUBLIC_SUPPORT_EMAIL}`}>
-              {env.NEXT_PUBLIC_SUPPORT_EMAIL}
-            </a>{" "}
-            if the error persists.
+            <a href={SUPPORT_URL}>{SUPPORT_CONTACT}</a> if the error persists.
           </EmptyDescription>
         </EmptyHeader>
       </Empty>

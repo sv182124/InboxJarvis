@@ -15,7 +15,7 @@ import { useDialogState } from "@/hooks/useDialogState";
 import { ActionType, LogicalOperator } from "@/generated/prisma/enums";
 import { ConditionType } from "@/utils/config";
 import type { RulesResponse } from "@/app/api/user/rules/route";
-import { SUPPORT_EMAIL } from "@/utils/branding";
+import { SUPPORT_CONTACT, SUPPORT_URL } from "@/utils/branding";
 import { RuleLoader } from "./RuleLoader";
 
 interface RuleDialogProps {
@@ -138,8 +138,8 @@ function RuleDialogErrorState({ onClose }: { onClose: () => void }) {
     <div className="space-y-4 py-4">
       <p className="text-sm text-muted-foreground">
         An error occurred while opening this rule. Please contact support at{" "}
-        <a href={`mailto:${SUPPORT_EMAIL}`} className="underline">
-          {SUPPORT_EMAIL}
+        <a href={SUPPORT_URL} className="underline">
+          {SUPPORT_CONTACT}
         </a>{" "}
         if the problem persists.
       </p>

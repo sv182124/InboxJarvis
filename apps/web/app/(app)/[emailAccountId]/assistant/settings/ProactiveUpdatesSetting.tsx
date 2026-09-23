@@ -1,5 +1,7 @@
 "use client";
 
+import { BRAND_NAME } from "@/utils/branding";
+
 import { Settings2Icon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -218,7 +220,7 @@ export function ProactiveUpdatesSetting({
           <DialogHeader>
             <DialogTitle>Scheduled check-ins</DialogTitle>
             <DialogDescription>
-              Configure when Inbox Zero sends scheduled summaries to{" "}
+              Configure when {BRAND_NAME} sends scheduled summaries to{" "}
               {getMessagingProviderName(channel.provider)}.
             </DialogDescription>
           </DialogHeader>

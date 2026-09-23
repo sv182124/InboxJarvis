@@ -6,7 +6,7 @@ google:
   oauth_clients:
     - client_id: client_id
       client_secret: client_secret
-      name: Inbox Zero Smoke
+      name: InboxJarvis Smoke
       redirect_uris:
         - __PLAYWRIGHT_TEST_REDIRECT_URI__
   labels:

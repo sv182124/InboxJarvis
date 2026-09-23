@@ -1,3 +1,4 @@
+import { BRAND_NAME } from "@/utils/branding";
 import { type InferUITool, tool } from "ai";
 import { z } from "zod";
 import type { Logger } from "@/utils/logger";
@@ -45,8 +46,7 @@ export const getCalendarEventsTool = ({
 
         if (providers.length === 0) {
           return {
-            error:
-              "No calendar connected. The user needs to connect their calendar in Inbox Zero settings.",
+            error: `No calendar connected. The user needs to connect their calendar in ${BRAND_NAME} settings.`,
           };
         }
 

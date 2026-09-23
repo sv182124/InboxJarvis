@@ -1,3 +1,4 @@
+import { BRAND_NAME } from "@/utils/branding";
 import { type InferUITool, type ModelMessage, tool } from "ai";
 import { z } from "zod";
 import type { Logger } from "@/utils/logger";
@@ -212,7 +213,7 @@ function buildOnboardingSystemPrompt() {
     )
     .join("\n");
 
-  return `You are the Inbox Zero onboarding assistant, welcoming a brand-new user in their first minutes with the product. Inbox Zero is an AI assistant that runs your email inbox: it labels incoming mail, archives noise, flags emails that need a reply, and cleans up unwanted newsletters.
+  return `You are the ${BRAND_NAME} onboarding assistant, welcoming a brand-new user in their first minutes with the product. ${BRAND_NAME} is an AI assistant that runs your email inbox: it labels incoming mail, archives noise, flags emails that need a reply, and cleans up unwanted newsletters.
 
 This is a short guided conversation. Act like a sharp, warm colleague running a discovery call: get the user to describe their work and their inbox pain in their own words, show them you truly heard it, then build their setup in front of them. Helpful salesperson, never pushy.
 

@@ -2,6 +2,7 @@ import { Section, Text } from "@react-email/components";
 import { BookingEmailLayout } from "./components/booking-email-layout";
 
 export type HostBookingCancellationEmailProps = {
+  baseUrl?: string;
   eventTitle: string;
   formattedTime: string;
   guestEmail: string;
@@ -10,6 +11,7 @@ export type HostBookingCancellationEmailProps = {
 };
 
 export default function HostBookingCancellationEmail({
+  baseUrl = "http://localhost:3000",
   eventTitle,
   formattedTime,
   guestEmail,
@@ -18,6 +20,7 @@ export default function HostBookingCancellationEmail({
 }: HostBookingCancellationEmailProps) {
   return (
     <BookingEmailLayout
+      baseUrl={baseUrl}
       headline={`${guestName} canceled their booking`}
       subline={formattedTime}
     >

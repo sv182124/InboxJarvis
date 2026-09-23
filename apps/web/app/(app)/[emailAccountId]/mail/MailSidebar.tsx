@@ -1,5 +1,7 @@
 "use client";
 
+import { BRAND_NAME } from "@/utils/branding";
+
 import { type FormEvent, type ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 import {
@@ -279,7 +281,7 @@ export function MailSidebar({
           >
             <ArrowLeftIcon className="size-3.5 shrink-0" />
             <span className="flex-1 truncate" data-hide-on-desktop-mac>
-              Inbox Zero
+              {BRAND_NAME}
             </span>
           </Link>
           <SidebarTrigger
