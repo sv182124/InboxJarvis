@@ -22,6 +22,8 @@ concurrency:
 
 jobs:
   deploy:
+    # Configure a domain to enable this optional Cloudflare deployment.
+    if: vars.CLOUDFLARE_IMAGE_PROXY_DOMAIN != ''
     runs-on: ubuntu-latest
 
     env:
