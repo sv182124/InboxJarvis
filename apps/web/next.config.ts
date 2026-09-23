@@ -241,32 +241,32 @@ const nextConfig: NextConfig = {
         source: "/",
       },
       {
-        destination: "https://go.getinboxzero.com/feature-requests",
+        destination: "https://github.com/sv182124/InboxJarvis/issues",
         permanent: true,
         source: "/feature-requests",
       },
       {
-        destination: "https://go.getinboxzero.com/feature-requests",
+        destination: "https://github.com/sv182124/InboxJarvis/issues",
         permanent: true,
         source: "/roadmap",
       },
       {
-        destination: "https://go.getinboxzero.com/feedback",
+        destination: "https://github.com/sv182124/InboxJarvis/issues",
         permanent: true,
         source: "/feedback",
       },
       {
-        destination: "https://go.getinboxzero.com/changelog",
+        destination: "https://github.com/sv182124/InboxJarvis/releases",
         permanent: true,
         source: "/changelog",
       },
       {
-        destination: "https://go.getinboxzero.com/x",
+        destination: "https://github.com/sv182124/InboxJarvis",
         permanent: true,
         source: "/twitter",
       },
       {
-        destination: "https://go.getinboxzero.com/github",
+        destination: "https://github.com/sv182124/InboxJarvis",
         permanent: true,
         source: "/github",
       },
@@ -283,14 +283,19 @@ const nextConfig: NextConfig = {
         source: "/android",
       },
       {
-        destination: "https://go.getinboxzero.com/discord",
+        destination: "https://github.com/sv182124/InboxJarvis/issues",
         permanent: true,
         source: "/discord",
       },
       {
-        destination: "https://go.getinboxzero.com/linkedin",
+        destination: "https://github.com/sv182124/InboxJarvis",
         permanent: true,
         source: "/linkedin",
+      },
+      {
+        destination: "https://github.com/sv182124/InboxJarvis/issues",
+        permanent: false,
+        source: "/support",
       },
       {
         destination: "/support",
@@ -298,17 +303,17 @@ const nextConfig: NextConfig = {
         source: "/contact",
       },
       {
-        destination: "https://go.getinboxzero.com/waitlist",
+        destination: "https://github.com/sv182124/InboxJarvis/issues",
         permanent: true,
         source: "/waitlist",
       },
       {
-        destination: "https://go.getinboxzero.com/waitlist-other",
+        destination: "https://github.com/sv182124/InboxJarvis/issues",
         permanent: false,
         source: "/waitlist-other",
       },
       {
-        destination: "https://go.getinboxzero.com/affiliate",
+        destination: "https://github.com/sv182124/InboxJarvis/issues",
         permanent: true,
         source: "/affiliates",
       },
@@ -318,17 +323,18 @@ const nextConfig: NextConfig = {
         source: "/newsletters",
       },
       {
-        destination: "https://docs.getinboxzero.com",
+        destination: "https://github.com/sv182124/InboxJarvis/tree/main/docs",
         permanent: true,
         source: "/docs",
       },
       {
-        destination: "https://docs.getinboxzero.com/:path*",
+        destination:
+          "https://github.com/sv182124/InboxJarvis/blob/main/docs/:path*.mdx",
         permanent: true,
         source: "/docs/:path*",
       },
       {
-        destination: "https://docs.getinboxzero.com",
+        destination: "https://github.com/sv182124/InboxJarvis/tree/main/docs",
         permanent: true,
         source: "/api-reference/cli",
       },
@@ -348,17 +354,18 @@ const nextConfig: NextConfig = {
         source: "/new-senders",
       },
       {
-        destination: "https://go.getinboxzero.com/game",
+        destination: "https://github.com/sv182124/InboxJarvis",
         permanent: false,
         source: "/game",
       },
       {
-        destination: "https://go.getinboxzero.com/soc2",
+        destination:
+          "https://github.com/sv182124/InboxJarvis/blob/main/SECURITY.md",
         permanent: true,
         source: "/soc2",
       },
       {
-        destination: "https://go.getinboxzero.com/sales",
+        destination: "https://github.com/sv182124/InboxJarvis/issues",
         permanent: false,
         source: "/sales",
       },

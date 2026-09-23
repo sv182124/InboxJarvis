@@ -1,11 +1,25 @@
 import { describe, expect, it } from "vitest";
 import {
   hasReferralSignature,
+  renderReferralSignatureHtml,
   stripReferralSignature,
   stripBrandingSignatures,
 } from "@/utils/referral/signature";
 
 describe("referral signatures", () => {
+  it("recognizes newly generated signatures alongside legacy signatures", () => {
+    const signature = renderReferralSignatureHtml(
+      "https://example.com/?ref=test",
+    );
+    expect(hasReferralSignature(signature)).toBe(true);
+    expect(stripReferralSignature(`Reply text\n\n${signature}`)).toBe(
+      "Reply text",
+    );
+    expect(stripReferralSignature("Reply text\n\nDrafted by Inbox Zero.")).toBe(
+      "Reply text",
+    );
+  });
+
   it("removes drafted branding without altering reply links or personal signatures", () => {
     const body = '<p>See <a href="https://example.com">the update</a>.</p>';
     const signature = "<p>Best,<br>Sender</p>";

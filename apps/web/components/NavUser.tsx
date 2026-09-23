@@ -184,7 +184,7 @@ export function NavUser() {
             )}
             <DropdownMenuItem asChild>
               <Link
-                href="https://docs.getinboxzero.com"
+                href="https://github.com/sv182124/InboxJarvis/tree/main/docs"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => closeMobileSidebar("left-sidebar")}

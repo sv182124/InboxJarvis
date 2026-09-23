@@ -1,9 +1,10 @@
-# Default values for the Inbox Zero Helm chart.
+# Default values for the InboxJarvis Helm chart.
 #
 # This chart can run a self-contained stack for evaluation, or connect the app
 # to managed Postgres and Redis services for production.
 
 image:
+  # Upstream compatibility image; override with your own build for InboxJarvis changes.
   repository: ghcr.io/elie222/inbox-zero
   tag: latest
   pullPolicy: Always

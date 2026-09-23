@@ -1,13 +1,13 @@
 ---
 name: inbox-zero-api
-description: Use the Inbox Zero API CLI to inspect the live API schema, list and manage automation rules, and read inbox analytics through the public API. Use this when a task involves Inbox Zero rules, stats, or API-driven automation and can be solved through the CLI instead of browser interaction.
-homepage: https://www.getinboxzero.com/api-reference/cli
-metadata: { "openclaw": { "skillKey": "inboxZeroApi", "requires": { "bins": ["inbox-zero-api"], "env": ["INBOX_ZERO_API_KEY"] }, "primaryEnv": "INBOX_ZERO_API_KEY", "install": [ { "id": "node", "kind": "node", "package": "@inbox-zero/api", "bins": ["inbox-zero-api"], "label": "Install Inbox Zero API CLI (npm)" } ] } }
+description: Use the InboxJarvis API CLI to inspect the live API schema, list and manage automation rules, and read inbox analytics through the public API. Use this when a task involves InboxJarvis rules, stats, or API-driven automation and can be solved through the CLI instead of browser interaction.
+homepage: https://github.com/sv182124/InboxJarvis/blob/main/docs/api-reference/cli.mdx
+metadata: { "openclaw": { "skillKey": "inboxZeroApi", "requires": { "bins": ["inbox-zero-api"], "env": ["INBOX_ZERO_API_KEY"] }, "primaryEnv": "INBOX_ZERO_API_KEY", "install": [ { "id": "node", "kind": "node", "package": "@inbox-zero/api", "bins": ["inbox-zero-api"], "label": "Install upstream Inbox Zero compatibility CLI (npm)" } ] } }
 ---
 
-# Inbox Zero API CLI
+# InboxJarvis API CLI
 
-Use this skill when the task is to inspect or change Inbox Zero state through the public API.
+Use this skill when the task is to inspect or change InboxJarvis state through the public API.
 
 ## Workflow
 
@@ -25,17 +25,17 @@ inbox-zero-api stats by-period --period week --json
 inbox-zero-api openapi --json
 ```
 
-If the CLI is not installed yet, install it with the OpenClaw installer or run `npm install -g @inbox-zero/api`.
+For the local source version, run `pnpm exec tsx packages/api/src/main.ts` from the InboxJarvis checkout. The OpenClaw installer uses the upstream `@inbox-zero/api` package; configure its base URL before using it with InboxJarvis.
 
 ## Cursor
 
-Set `INBOX_ZERO_API_KEY` when using authenticated commands (`rules`, `stats`, etc.); `openapi --json` works without a key. Use shell profile, Cursor env, or a local env file—never commit keys. Install: `npm install -g @inbox-zero/api` or `npx @inbox-zero/api`.
+Set `INBOX_ZERO_API_KEY` when using authenticated commands (`rules`, `stats`, etc.); `openapi --json` works without a key. Use shell profile, Cursor env, or a local env file—never commit keys. The npm and npx packages under `@inbox-zero/api` are upstream compatibility clients, not InboxJarvis releases.
 
 ## OpenClaw Config
 
 Set the API key in `~/.openclaw/openclaw.json` under `skills.entries.inboxZeroApi.apiKey`, or export `INBOX_ZERO_API_KEY` in the host environment.
 
-Use `INBOX_ZERO_BASE_URL` or `inbox-zero-api config set base-url <url>` only for self-hosted or nonstandard deployments.
+Set `INBOX_ZERO_BASE_URL=http://localhost:3000`, or use `inbox-zero-api config set base-url http://localhost:3000`, for the local InboxJarvis app. Use your deployment URL on a hosted installation. Do not rely on an upstream published client’s default URL.
 
 ## Reference
 

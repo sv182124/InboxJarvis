@@ -6,19 +6,9 @@ icon: 'sparkles'
 
 The AI Personal Assistant organizes your inbox for you. Describe how you want your email handled in plain English, and it labels, archives, forwards, and drafts replies automatically as mail arrives.
 
-Open **Assistant** in the left sidebar or visit [Assistant](https://www.getinboxzero.com/automation). You can also create and manage rules through [AI Chat](/essentials/ai-chat).
+Open **Assistant** in the left sidebar or visit [Assistant](http://localhost:3000/automation). You can also create and manage rules through [AI Chat](/essentials/ai-chat).
 
 ## Getting Started
-
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/SoeNDVr7ve4"
-  title="YouTube video player"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-></iframe>
 
 <Note>
 The video uses Gmail. Outlook users follow the same Assistant flow; label actions become Outlook categories, and messages can be moved to Outlook folders. See [Using Outlook](/essentials/outlook-guide).
@@ -35,7 +25,7 @@ Use **Add rule manually** when you want to build the condition and actions yours
 
 ## How Rules Work
 
-Each rule has a condition and one or more actions. When an incoming email matches the condition, Inbox Zero performs the configured actions.
+Each rule has a condition and one or more actions. When an incoming email matches the condition, InboxJarvis performs the configured actions.
 
 ![AI Rules](/images/ai-rules.png)
 
@@ -80,7 +70,7 @@ Hi {{name}},
 Best regards
 ```
 
-Inbox Zero generates the content inside each `{{...}}` placeholder from the email context. Text outside the placeholders remains as written.
+InboxJarvis generates the content inside each `{{...}}` placeholder from the email context. Text outside the placeholders remains as written.
 
 ### Delayed Execution
 
@@ -104,7 +94,7 @@ The assistant learns from corrections and from how you handle messages.
 
 ## Test Rules
 
-Open the [Test tab](https://www.getinboxzero.com/automation?tab=test) to run your rules against an email or free-form text. **Test All** evaluates the selected email against all rules without applying the actions.
+Open the [Test tab](http://localhost:3000/automation?tab=test) to run your rules against an email or free-form text. **Test All** evaluates the selected email against all rules without applying the actions.
 
 ![Test Rules](/images/test-rules.png)
 

@@ -16,7 +16,7 @@ const packagedBin = join(
   desktopRoot,
   "release/linux-unpacked/@inboxzerodesktop",
 );
-const hostedMailUrl = "https://www.getinboxzero.com/account-1/mail?type=inbox";
+const hostedMailUrl = "http://localhost:3000/account-1/mail?type=inbox";
 
 describe.skipIf(!hasElectronBinary())(
   "desktop packaged local mail renderer",
@@ -39,7 +39,7 @@ describe.skipIf(!hasElectronBinary())(
       ]);
       expect(payload.url).toContain("file:");
       expect(payload.url).toContain("renderer/index.html");
-      expect(payload.url).not.toContain("getinboxzero.com");
+      expect(payload.url).not.toContain(new URL(hostedMailUrl).origin);
       expect(payload.ready).toBe(true);
     }, 90_000);
 
@@ -51,7 +51,7 @@ describe.skipIf(!hasElectronBinary())(
         ]);
         expect(payload.url).toContain("file:");
         expect(payload.url).toContain("renderer/index.html");
-        expect(payload.url).not.toContain("getinboxzero.com");
+        expect(payload.url).not.toContain(new URL(hostedMailUrl).origin);
         expect(payload.ready).toBe(true);
       },
       90_000,

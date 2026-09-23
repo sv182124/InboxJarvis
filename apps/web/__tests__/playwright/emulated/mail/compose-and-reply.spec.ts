@@ -478,7 +478,7 @@ test("composes, sends, and reads a new message from Sent", async ({
   await expect(
     dialog
       .locator("[data-email-preserved-kind='signature']")
-      .getByRole("link", { name: "Inbox Zero" }),
+      .getByRole("link", { name: "InboxJarvis" }),
   ).toBeVisible();
   await capturePlaywrightCheckpoint(page, testInfo, "composer-with-footer");
   await dialog.getByRole("button", { exact: true, name: "Send" }).click();
@@ -498,7 +498,7 @@ test("composes, sends, and reads a new message from Sent", async ({
   await expect(page.getByRole("heading", { name: subject })).toBeVisible();
   await expect(page.getByText("recipient@example.com").first()).toBeVisible();
   await expectThreadReaderBody(page, "A composed message body.");
-  await expectThreadReaderBody(page, "Sent with Inbox Zero");
+  await expectThreadReaderBody(page, "Sent with InboxJarvis");
   await capturePlaywrightCheckpoint(page, testInfo, "composed-message-in-sent");
 });
 

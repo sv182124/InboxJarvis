@@ -34,7 +34,7 @@ export async function checkForDesktopUpdatesManually(
     await dialog.showMessageBox({
       type: "info",
       message: "Updates are unavailable in development builds",
-      detail: "Install a released version of Inbox Zero to receive updates.",
+      detail: "Install a released version of InboxJarvis to receive updates.",
     });
     return false;
   }
@@ -48,16 +48,16 @@ export async function checkForDesktopUpdatesManually(
       await dialog.showMessageBox({
         type: "info",
         message: "You're up to date",
-        detail: `Inbox Zero ${app.getVersion()} is the latest version.`,
+        detail: `InboxJarvis ${app.getVersion()} is the latest version.`,
       });
       return true;
     }
 
     await dialog.showMessageBox({
       type: "info",
-      message: `Downloading Inbox Zero ${result.updateInfo.version}`,
+      message: `Downloading InboxJarvis ${result.updateInfo.version}`,
       detail:
-        "You can keep using Inbox Zero. We'll let you know when the update is ready.",
+        "You can keep using InboxJarvis. We'll let you know when the update is ready.",
     });
     await (result.downloadPromise ?? autoUpdater.downloadUpdate());
 
@@ -67,7 +67,7 @@ export async function checkForDesktopUpdatesManually(
       defaultId: 0,
       cancelId: 1,
       message: "An update is ready to install",
-      detail: `Inbox Zero ${result.updateInfo.version} has been downloaded. Restart now to finish updating.`,
+      detail: `InboxJarvis ${result.updateInfo.version} has been downloaded. Restart now to finish updating.`,
     });
     if (response === 0) {
       prepareToQuit();

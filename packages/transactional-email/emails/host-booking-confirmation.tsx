@@ -2,6 +2,7 @@ import { Section, Text } from "@react-email/components";
 import { BookingEmailLayout } from "./components/booking-email-layout";
 
 export type HostBookingConfirmationEmailProps = {
+  baseUrl?: string;
   eventTitle: string;
   formattedTime: string;
   guestEmail: string;
@@ -16,6 +17,7 @@ export type HostBookingConfirmationEmailProps = {
 };
 
 export default function HostBookingConfirmationEmail({
+  baseUrl = "http://localhost:3000",
   eventTitle,
   formattedTime,
   guestEmail,
@@ -30,6 +32,7 @@ export default function HostBookingConfirmationEmail({
 }: HostBookingConfirmationEmailProps) {
   return (
     <BookingEmailLayout
+      baseUrl={baseUrl}
       headline={`New booking from ${guestName}`}
       subline={formattedTime}
     >
@@ -114,5 +117,5 @@ HostBookingConfirmationEmail.PreviewProps = {
   timeRange: "10:00 AM – 10:15 AM",
   timezoneLabel: "Asia/Jerusalem",
   guestNote:
-    "Hey Elie, building a B2B email tool, would love to chat about your AI rules approach.",
+    "Hey Alex, building a B2B email tool, would love to chat about your AI rules approach.",
 } satisfies HostBookingConfirmationEmailProps;

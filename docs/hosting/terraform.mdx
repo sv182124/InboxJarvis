@@ -1,9 +1,13 @@
 ---
 title: 'Terraform Deployment'
-description: 'Deploy Inbox Zero to AWS using Terraform'
+description: 'Deploy InboxJarvis to AWS using Terraform'
 ---
 
-Deploy Inbox Zero to AWS using Terraform. This provisions:
+<Info>
+Build and publish an image from this checkout to deploy InboxJarvis changes. Existing `ghcr.io/elie222/inbox-zero` images are upstream Inbox Zero releases; they are retained as compatibility defaults and are not InboxJarvis releases.
+</Info>
+
+Deploy InboxJarvis to AWS using Terraform. This provisions:
 
 - ECS Fargate service + ALB
 - RDS PostgreSQL
@@ -20,10 +24,10 @@ Deploy Inbox Zero to AWS using Terraform. This provisions:
 ## Generate Terraform Files
 
 ```bash
-npx @inbox-zero/cli setup-terraform
+pnpm exec tsx packages/cli/src/main.ts setup-terraform
 ```
 
-If you've [installed the CLI globally](/hosting/quick-start#install-options), you can use `inbox-zero setup-terraform`. From a cloned repo, you can also use `pnpm setup-terraform`.
+Run this command from the repository root after installing dependencies. You can also use `pnpm setup-terraform`.
 
 This creates a `terraform/` directory with:
 

@@ -1,9 +1,13 @@
 ---
 title: 'Kubernetes Deployment'
-description: 'Run Inbox Zero on Kubernetes with the Helm chart'
+description: 'Run InboxJarvis on Kubernetes with the Helm chart'
 ---
 
-Inbox Zero can run on Kubernetes as the same pieces used by Docker Compose:
+<Info>
+Build and publish an image from this checkout to deploy InboxJarvis changes. Existing `ghcr.io/elie222/inbox-zero` images are upstream Inbox Zero releases; they are retained as compatibility defaults and are not InboxJarvis releases.
+</Info>
+
+InboxJarvis can run on Kubernetes as the same pieces used by Docker Compose:
 
 - A `web` Deployment for the Next.js app.
 - A migration Job that runs Prisma migrations before Helm installs or upgrades the app when managed Postgres is enabled.

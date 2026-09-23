@@ -403,7 +403,7 @@ const enterpriseTier: Tier = {
     },
   ],
   cta: "Speak to sales",
-  ctaLink: "https://go.getinboxzero.com/sales",
+  ctaLink: "https://github.com/sv182124/InboxJarvis/issues",
   mostPopular: false,
 };
 

@@ -1,3 +1,4 @@
+import { BRAND_NAME } from "@/utils/branding";
 import { CALENDAR_INVITATION_LIMITS } from "@/utils/calendar/invitations/constants";
 import ICAL from "ical.js";
 import { z } from "zod";
@@ -97,7 +98,7 @@ export function createCalendarReply(
   const original = new ICAL.Component(ICAL.parse(invitation.content));
   const source = original.getFirstSubcomponent("vevent")!;
   const calendar = new ICAL.Component("vcalendar");
-  calendar.addPropertyWithValue("prodid", "-//Inbox Zero//Calendar//EN");
+  calendar.addPropertyWithValue("prodid", `-//${BRAND_NAME}//Calendar//EN`);
   calendar.addPropertyWithValue("version", "2.0");
   calendar.addPropertyWithValue("method", "REPLY");
   for (const zone of original.getAllSubcomponents("vtimezone")) {

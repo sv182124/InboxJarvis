@@ -1,31 +1,21 @@
-# @inbox-zero/api
+# InboxJarvis API CLI
 
-CLI tool for managing [Inbox Zero](https://www.getinboxzero.com) through the external API.
+CLI tool for managing [InboxJarvis](https://github.com/sv182124/InboxJarvis) through the external API.
 
 This package is separate from `@inbox-zero/cli`, which is focused on self-hosting and deployment.
 
-## Installation
+## Run from this repository
 
-### `npx`
-
-Requires Node.js `18+`.
+Use Node.js 24 and install the repository dependencies. From the repository root:
 
 ```bash
-npx @inbox-zero/api --help
+pnpm exec tsx packages/api/src/main.ts --help
+pnpm exec tsx packages/api/src/main.ts rules list
+pnpm exec tsx packages/api/src/main.ts stats by-period --period week
 ```
 
-### Global install
-
-```bash
-npm install -g @inbox-zero/api
-```
-
-## Quick Start
-
-```bash
-inbox-zero-api rules list
-inbox-zero-api stats by-period --period week
-```
+The package name, built `inbox-zero-api` command, and existing configuration paths
+are retained for compatibility.
 
 Set `INBOX_ZERO_API_KEY` in your shell or secret manager before running commands. Avoid passing API keys as CLI arguments because they can leak into shell history and process listings.
 
@@ -49,18 +39,18 @@ Supported environment variables:
 Manage local API CLI configuration.
 
 ```bash
-inbox-zero-api config list
-inbox-zero-api config get base-url
+pnpm exec tsx packages/api/src/main.ts config list
+pnpm exec tsx packages/api/src/main.ts config get base-url
 ```
 
-`base-url` is optional. It defaults to `https://www.getinboxzero.com` and only needs to be set for self-hosted or nonstandard deployments.
+`base-url` is optional. It defaults to `http://localhost:3000` and can be changed for another deployment.
 
 ### `inbox-zero-api openapi`
 
-Fetch the live OpenAPI document from the configured Inbox Zero deployment.
+Fetch the live OpenAPI document from the configured InboxJarvis deployment.
 
 ```bash
-inbox-zero-api openapi --json
+pnpm exec tsx packages/api/src/main.ts openapi --json
 ```
 
 ### `inbox-zero-api rules`
@@ -68,16 +58,16 @@ inbox-zero-api openapi --json
 Manage automation rules for the inbox account scoped by the API key.
 
 ```bash
-inbox-zero-api rules list
-inbox-zero-api rules get rule_123
-inbox-zero-api rules delete rule_123
+pnpm exec tsx packages/api/src/main.ts rules list
+pnpm exec tsx packages/api/src/main.ts rules get rule_123
+pnpm exec tsx packages/api/src/main.ts rules delete rule_123
 ```
 
 Create or update rules with a JSON file or stdin:
 
 ```bash
-inbox-zero-api rules create --file rule.json
-cat rule.json | inbox-zero-api rules update rule_123 --file -
+pnpm exec tsx packages/api/src/main.ts rules create --file rule.json
+cat rule.json | pnpm exec tsx packages/api/src/main.ts rules update rule_123 --file -
 ```
 
 The request body must match the public API schema.
@@ -87,8 +77,8 @@ The request body must match the public API schema.
 Read analytics from the external API.
 
 ```bash
-inbox-zero-api stats by-period --period month
-inbox-zero-api stats response-time --json
+pnpm exec tsx packages/api/src/main.ts stats by-period --period month
+pnpm exec tsx packages/api/src/main.ts stats response-time --json
 ```
 
 For bot workflows, prefer `--json` so the CLI returns structured output instead of a human-oriented summary.

@@ -12,10 +12,12 @@ import type { ReactNode } from "react";
 import { InboxZeroFooter } from "./inbox-zero-footer";
 
 export function BookingEmailLayout({
+  baseUrl = "http://localhost:3000",
   headline,
   subline,
   children,
 }: {
+  baseUrl?: string;
   headline: ReactNode;
   subline: ReactNode;
   children: ReactNode;
@@ -40,7 +42,7 @@ export function BookingEmailLayout({
 
             <Section className="px-8 pb-6 pt-2">{children}</Section>
 
-            <InboxZeroFooter />
+            <InboxZeroFooter baseUrl={baseUrl} />
           </Container>
         </Body>
       </Tailwind>

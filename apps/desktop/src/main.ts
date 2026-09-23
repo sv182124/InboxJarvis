@@ -121,7 +121,7 @@ function startDesktopApp() {
     )
       return;
     const notification = new Notification({
-      title: "Inbox Zero",
+      title: "InboxJarvis",
       body:
         mail.count === 1
           ? "You have a new email"
@@ -293,7 +293,7 @@ function createAppWindow(options?: {
     ...(bounds ? { x: bounds.x, y: bounds.y } : {}),
     minWidth: MIN_DESKTOP_WINDOW_WIDTH,
     minHeight: MIN_DESKTOP_WINDOW_HEIGHT,
-    title: "Inbox Zero",
+    title: "InboxJarvis",
     ...getDesktopWindowChrome(),
     webPreferences: {
       preload: path.join(import.meta.dirname, "preload.cjs"),
@@ -738,7 +738,7 @@ async function waitForLocalMailReady(window: BrowserWindow) {
         .executeJavaScript('document.body ? document.body.innerText : ""')
         .catch(() => ""),
     );
-    if (text.includes("Inbox Zero")) return true;
+    if (text.includes("InboxJarvis")) return true;
     await new Promise((resolve) => setTimeout(resolve, 250));
   }
   return false;

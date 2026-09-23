@@ -49,6 +49,7 @@ describe("booking emails", () => {
     expect(resendMocks.sendGuestBookingConfirmationEmail).toHaveBeenCalledWith(
       expect.objectContaining({
         emailProps: expect.objectContaining({
+          baseUrl: "https://example.com",
           hostName: "Host User",
         }),
         to: "guest@example.com",
@@ -56,6 +57,9 @@ describe("booking emails", () => {
     );
     expect(resendMocks.sendHostBookingConfirmationEmail).toHaveBeenCalledWith(
       expect.objectContaining({
+        emailProps: expect.objectContaining({
+          baseUrl: "https://example.com",
+        }),
         to: "host@example.com",
       }),
     );
@@ -152,6 +156,7 @@ describe("booking emails", () => {
       expect.objectContaining({
         to: "guest@example.com",
         emailProps: expect.objectContaining({
+          baseUrl: "https://example.com",
           rescheduleUrl:
             "https://example.com/book/reschedule/booking-uid?token=token",
           cancelUrl: "https://example.com/book/cancel/booking-uid?token=token",
@@ -163,6 +168,7 @@ describe("booking emails", () => {
       expect.objectContaining({
         to: "host@example.com",
         emailProps: expect.objectContaining({
+          baseUrl: "https://example.com",
           previousFormattedTime: expect.any(String),
         }),
       }),
@@ -180,6 +186,7 @@ describe("booking emails", () => {
     expect(resendMocks.sendHostBookingCancellationEmail).toHaveBeenCalledWith(
       expect.objectContaining({
         emailProps: expect.objectContaining({
+          baseUrl: "https://example.com",
           reason: "No longer needed",
         }),
       }),

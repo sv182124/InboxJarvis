@@ -1,31 +1,21 @@
 # Security Policy
 
-## Reporting a Vulnerability
+## Reporting a vulnerability
 
-If you discover a security vulnerability, please report it privately:
+Please report vulnerabilities privately when possible. Open the [InboxJarvis security page](https://github.com/sv182124/InboxJarvis/security) and use **Report a vulnerability** if private reporting is enabled.
 
-1. **GitHub Security Advisories (preferred):** [Report a vulnerability](https://github.com/elie222/inbox-zero/security/advisories/new)
-2. **Email:** [security@getinboxzero.com](mailto:security@getinboxzero.com)
+If that option is unavailable, open an issue asking the maintainer for a private reporting channel. Do not include vulnerability details, credentials, personal data, or exploit code in the public issue.
 
-Please do **not** open a public GitHub issue for security vulnerabilities.
-
-## What to Include
+## What to include in a private report
 
 - A description of the vulnerability
 - Steps to reproduce
+- The affected version or commit
 - Potential impact
-- Any suggested remediation (optional)
-
-## What to Expect
-
-- Acknowledgement of your report within 3 business days
-- Initial assessment within 7 days
-- Coordinated disclosure timeline based on severity
+- Suggested remediation, if available
 
 ## Scope
 
-This policy covers the Inbox Zero application at getinboxzero.com and code in this repository.
+This policy covers the code in this InboxJarvis repository. It does not cover upstream hosted services or third-party integrations.
 
-## Recognition
-
-We're grateful to researchers who help keep Inbox Zero and our users safe. With your permission, we're happy to credit you in our acknowledgments after the issue is resolved.
+There is no guaranteed response time. Coordinate public disclosure with the maintainer after a fix is available.

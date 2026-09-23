@@ -2,6 +2,7 @@ import { Link, Section, Text } from "@react-email/components";
 import { BookingEmailLayout } from "./components/booking-email-layout";
 
 export type GuestBookingRescheduledEmailProps = {
+  baseUrl?: string;
   cancelUrl: string;
   rescheduleUrl: string;
   eventTitle: string;
@@ -19,6 +20,7 @@ export type GuestBookingRescheduledEmailProps = {
 };
 
 export default function GuestBookingRescheduledEmail({
+  baseUrl = "http://localhost:3000",
   cancelUrl,
   rescheduleUrl,
   eventTitle,
@@ -37,6 +39,7 @@ export default function GuestBookingRescheduledEmail({
   const meetingTitle = `${eventTitle} with ${hostName}`;
   return (
     <BookingEmailLayout
+      baseUrl={baseUrl}
       headline={`Your meeting with ${hostName} was rescheduled`}
       subline={formattedTime}
     >
@@ -149,15 +152,14 @@ export default function GuestBookingRescheduledEmail({
 }
 
 GuestBookingRescheduledEmail.PreviewProps = {
-  cancelUrl:
-    "https://www.getinboxzero.com/book/cancel/example?token=test-token",
+  cancelUrl: "http://localhost:3000/book/cancel/example?token=test-token",
   rescheduleUrl:
-    "https://www.getinboxzero.com/book/reschedule/example?token=test-token",
+    "http://localhost:3000/book/reschedule/example?token=test-token",
   eventTitle: "15 min intro",
   formattedTime: "Fri, Nov 13, 2026 · 10:00 AM",
   previousFormattedTime: "Thu, Nov 12, 2026 · 10:00 AM",
   guestName: "Sarah Chen",
-  hostName: "Elie",
+  hostName: "Alex",
   location: "Google Meet",
   dateMonth: "NOV",
   dateDay: "13",

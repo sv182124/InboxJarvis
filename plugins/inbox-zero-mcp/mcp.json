@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "inbox-zero": {
-      "url": "https://www.getinboxzero.com/mcp"
+      "url": "http://localhost:3000/mcp"
     }
   }
 }

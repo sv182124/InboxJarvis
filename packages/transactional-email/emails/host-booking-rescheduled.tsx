@@ -2,6 +2,7 @@ import { Section, Text } from "@react-email/components";
 import { BookingEmailLayout } from "./components/booking-email-layout";
 
 export type HostBookingRescheduledEmailProps = {
+  baseUrl?: string;
   eventTitle: string;
   formattedTime: string;
   previousFormattedTime: string;
@@ -16,6 +17,7 @@ export type HostBookingRescheduledEmailProps = {
 };
 
 export default function HostBookingRescheduledEmail({
+  baseUrl = "http://localhost:3000",
   eventTitle,
   formattedTime,
   previousFormattedTime,
@@ -30,6 +32,7 @@ export default function HostBookingRescheduledEmail({
 }: HostBookingRescheduledEmailProps) {
   return (
     <BookingEmailLayout
+      baseUrl={baseUrl}
       headline={`${guestName} rescheduled their booking`}
       subline={formattedTime}
     >

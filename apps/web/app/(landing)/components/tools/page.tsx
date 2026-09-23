@@ -1,5 +1,7 @@
 "use client";
 
+import { BRAND_NAME } from "@/utils/branding";
+
 import { Suspense } from "react";
 import { SWRConfig } from "swr";
 import { AssistantInlineEmailResponse } from "@/components/assistant-chat/assistant-inline-email-response";
@@ -882,7 +884,7 @@ function getAssistantSendEmailOutput(state: EmailActionState) {
       bcc: null,
       subject: "Weekly update",
       messageHtml: "<p>Hi team,<br/>Here is this week's update.</p>",
-      from: "Inbox Zero <assistant@example.com>",
+      from: `${BRAND_NAME} <assistant@example.com>`,
     },
     ...(state === "confirmed"
       ? {

@@ -1,11 +1,12 @@
 "use client";
 
+import { SUPPORT_CONTACT, SUPPORT_URL, SUPPORT_EMAIL } from "@/utils/branding";
+
 import * as Sentry from "@sentry/nextjs";
 import { AlertCircle, Home, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { env } from "@/env";
 import { Button } from "@/components/ui/button";
 import {
   Empty,
@@ -101,10 +102,10 @@ export function AppErrorBoundary({
         <p className="mt-6 text-sm text-muted-foreground">
           If this error persists, please contact support at{" "}
           <a
-            href={`mailto:${env.NEXT_PUBLIC_SUPPORT_EMAIL}?${new URLSearchParams({ subject: "App error report", body: `Support reference: ${supportReference || error.digest || "Unavailable"}` })}`}
+            href={`${SUPPORT_URL}${SUPPORT_EMAIL ? "?" : "/new?"}${new URLSearchParams({ [SUPPORT_EMAIL ? "subject" : "title"]: "App error report", body: `Support reference: ${supportReference || error.digest || "Unavailable"}` })}`}
             className="break-all underline"
           >
-            {env.NEXT_PUBLIC_SUPPORT_EMAIL}
+            {SUPPORT_CONTACT}
           </a>
         </p>
       </Empty>

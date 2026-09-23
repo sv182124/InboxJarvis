@@ -18,6 +18,7 @@ http:
 
 
 image:
+  # Upstream compatibility image; deploy your own build to include InboxJarvis changes.
   location: ghcr.io/elie222/inbox-zero:latest
   # Alternatively, build the image from the Dockerfile.prod
   #build:
@@ -36,7 +37,7 @@ network:
 
 variables:                    # Pass environment variables as key value pairs.
   HOSTNAME: 0.0.0.0
-  NEXT_PUBLIC_BASE_URL: # YOUR_DOMAIN, e.g. https://www.getinboxzero.com (with http or https)
+  NEXT_PUBLIC_BASE_URL: # YOUR_DOMAIN, e.g. https://your-domain.com (with http or https)
   DEFAULT_LLMS:
 
 # Set these secrets at AWS Systems Manager (SSM) Parameter Store for extra security.

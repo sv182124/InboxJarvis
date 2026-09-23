@@ -1,7 +1,7 @@
 # Tinybird
 
 The [`project`](project) directory is the canonical Tinybird Forward project
-for the `InboxZero` workspace. It contains all analytics resources, including
+for your Tinybird workspace. It contains all analytics resources, including
 the AI analytics resources consumed by `@inboxzero/tinybird-ai-analytics`.
 
 ## CLI setup
@@ -13,11 +13,11 @@ your `PATH`:
 uvx --from tinybird@latest tb --version
 ```
 
-Authenticate and select the production workspace:
+Authenticate and select your workspace:
 
 ```sh
 cd packages/tinybird/project
-uvx --from tinybird@latest tb login --host https://api.us-east.tinybird.co --workspace InboxZero
+uvx --from tinybird@latest tb login --host https://api.us-east.tinybird.co --workspace YOUR_WORKSPACE
 ```
 
 ## Development workflow

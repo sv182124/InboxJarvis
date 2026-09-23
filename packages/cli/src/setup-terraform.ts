@@ -120,7 +120,7 @@ interface TerraformVarsConfig {
 }
 
 export async function runTerraformSetup(options: TerraformSetupOptions) {
-  p.intro("Terraform Setup for Inbox Zero");
+  p.intro("Terraform Setup for InboxJarvis");
 
   const nonInteractive = options.yes === true;
   const outputDir = resolveOutputDir(options.outputDir);
@@ -1201,7 +1201,7 @@ resource "aws_elasticache_replication_group" "main" {
   count = var.enable_redis ? 1 : 0
 
   replication_group_id          = "\${local.name_prefix}-redis"
-  description                   = "Redis for Inbox Zero"
+  description                   = "Redis for InboxJarvis"
   engine                        = "redis"
   engine_version                = "7.1"
   node_type                     = var.redis_instance_class
@@ -1677,9 +1677,9 @@ output "ssm_prefix" {
 }
 `;
 
-const TERRAFORM_README_MD = `# Inbox Zero Terraform (AWS)
+const TERRAFORM_README_MD = `# InboxJarvis Terraform (AWS)
 
-This directory contains Terraform configuration to deploy Inbox Zero on AWS using ECS Fargate, RDS, and optional ElastiCache Redis.
+This directory contains Terraform configuration to deploy InboxJarvis on AWS using ECS Fargate, RDS, and optional ElastiCache Redis.
 
 ## Quick Start
 

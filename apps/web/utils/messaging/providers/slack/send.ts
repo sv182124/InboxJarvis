@@ -1,3 +1,4 @@
+import { BRAND_NAME } from "@/utils/branding";
 import type { KnownBlock, Block } from "@slack/types";
 import type { WebClient } from "@slack/web-api";
 import { MessagingRouteTargetType } from "@/generated/prisma/enums";
@@ -61,7 +62,7 @@ export async function sendChannelConfirmation({
   const client = createSlackClient(accessToken);
 
   await postMessageWithJoin(client, channelId, {
-    text: `✅ Inbox Zero connected! You can mention ${formatSlackAppMention(botUserId)} in this channel to chat about your emails. If you enable meeting briefs or attachment filing notifications, I can send those here too.`,
+    text: `✅ ${BRAND_NAME} connected! You can mention ${formatSlackAppMention(botUserId)} in this channel to chat about your emails. If you enable meeting briefs or attachment filing notifications, I can send those here too.`,
   });
 }
 
@@ -79,7 +80,7 @@ export async function sendConnectionOnboardingDirectMessage({
   await client.chat.postMessage(
     disableSlackLinkUnfurls({
       channel: userId,
-      text: `✅ Inbox Zero connected. Next, choose a private channel in Inbox Zero Settings for meeting brief and attachment notifications, then invite ${formatSlackAppMention(botUserId)} there. You can also DM me anytime to chat about your emails.`,
+      text: `✅ ${BRAND_NAME} connected. Next, choose a private channel in ${BRAND_NAME} Settings for meeting brief and attachment notifications, then invite ${formatSlackAppMention(botUserId)} there. You can also DM me anytime to chat about your emails.`,
     }),
   );
 }
@@ -155,7 +156,7 @@ export async function sendDigestToSlack({
 
   await postMessageWithJoin(client, channelId, {
     blocks,
-    text: "📋 Your Inbox Zero digest",
+    text: `📋 Your ${BRAND_NAME} digest`,
   });
 }
 
@@ -238,7 +239,7 @@ export async function resolveSlackRouteDestination({
 }
 
 export function formatSlackAppMention(botUserId: string | null | undefined) {
-  return botUserId ? `<@${botUserId}>` : "@Inbox Zero";
+  return botUserId ? `<@${botUserId}>` : `@${BRAND_NAME}`;
 }
 
 export function disableSlackLinkUnfurls<T extends object>(message: T) {

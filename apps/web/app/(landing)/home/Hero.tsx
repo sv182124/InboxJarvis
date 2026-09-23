@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Gmail } from "@/components/new-landing/icons/Gmail";
 import { Outlook } from "@/components/new-landing/icons/Outlook";
 import {
@@ -11,13 +10,10 @@ import {
 } from "@/components/new-landing/common/Typography";
 import { CallToAction } from "@/components/new-landing/CallToAction";
 import { HeroReveal } from "@/components/new-landing/common/HeroReveal";
-import { UnicornScene } from "@/components/new-landing/UnicornScene";
 import {
   Badge,
   type BadgeVariant,
 } from "@/components/new-landing/common/Badge";
-import { BrandScroller } from "@/components/new-landing/BrandScroller";
-import { HeroVideoDialog } from "@/app/(landing)/home/HeroVideoDialog";
 
 interface HeroProps {
   badge?: React.ReactNode;
@@ -65,34 +61,5 @@ export function Hero({
         {children}
       </SectionContent>
     </Section>
-  );
-}
-
-export function HeroVideoPlayer() {
-  return (
-    <HeroReveal className="relative w-full" delay={0.125 * 9}>
-      <div className="relative block overflow-hidden rounded-3xl border border-[#EFEFEF] md:rounded-[43px]">
-        <HeroVideoDialog />
-        <Image
-          src="/images/new-landing/video-thumbnail.jpg"
-          alt="an organized inbox"
-          width={2560}
-          height={1404}
-          sizes="(min-width: 1280px) 1152px, (min-width: 1024px) calc(100vw - 64px), calc(100vw - 48px)"
-          preload
-          className="h-auto w-full"
-        />
-        <UnicornScene className="h-[calc(100%+5px)] opacity-30" />
-      </div>
-    </HeroReveal>
-  );
-}
-
-export function HeroContent() {
-  return (
-    <>
-      <BrandScroller />
-      <HeroVideoPlayer />
-    </>
   );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { BRAND_NAME } from "@/utils/branding";
+
 import { useAccount } from "@/providers/EmailAccountProvider";
 import { type ReactNode, useState } from "react";
 import { format } from "date-fns";
@@ -317,7 +319,7 @@ export function MeetingDetail({
               <AlertDialogTitle>Delete meeting notes?</AlertDialogTitle>
               <AlertDialogDescription>
                 The summary and transcript will be permanently deleted from
-                Inbox Zero. Recap emails already sent and follow-up drafts in
+                {BRAND_NAME}. Recap emails already sent and follow-up drafts in
                 your mailbox will remain.
               </AlertDialogDescription>
             </AlertDialogHeader>

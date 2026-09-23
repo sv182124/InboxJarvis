@@ -1,3 +1,4 @@
+import { BRAND_NAME } from "@/utils/branding";
 import type { LanguageModelV4 } from "@ai-sdk/provider";
 import type { GoogleLanguageModelOptions } from "@ai-sdk/google";
 import { createOpenAI } from "@ai-sdk/openai";
@@ -249,8 +250,8 @@ function selectModel(
       const openrouter = createOpenRouter({
         apiKey: resolveApiKey(aiApiKey, env.OPENROUTER_API_KEY),
         headers: {
-          "HTTP-Referer": "https://www.getinboxzero.com",
-          "X-Title": "Inbox Zero",
+          "HTTP-Referer": env.NEXT_PUBLIC_BASE_URL,
+          "X-Title": BRAND_NAME,
         },
       });
       const chatModel = openrouter.chat(modelName, {
@@ -272,8 +273,8 @@ function selectModel(
       const gateway = createGateway({
         apiKey: aiGatewayApiKey,
         headers: {
-          "http-referer": "https://www.getinboxzero.com",
-          "x-title": "Inbox Zero",
+          "http-referer": env.NEXT_PUBLIC_BASE_URL,
+          "x-title": BRAND_NAME,
         },
       });
       return {

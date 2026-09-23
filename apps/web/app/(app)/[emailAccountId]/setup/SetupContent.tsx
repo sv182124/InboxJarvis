@@ -401,7 +401,7 @@ function Checklist({
           href={EXTENSION_URL}
           linkProps={{ target: "_blank", rel: "noopener noreferrer" }}
           icon={<GlobeIcon size={18} />}
-          title={`Optional: Install the ${BRAND_NAME} Tabs extension`}
+          title="Optional: Install the Inbox Zero Tabs extension"
           timeEstimate="1 minute"
           completed={isTabsExtensionCompleted}
           actionText="Install"

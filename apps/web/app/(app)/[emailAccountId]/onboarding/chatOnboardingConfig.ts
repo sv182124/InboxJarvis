@@ -1,3 +1,4 @@
+import { BRAND_NAME } from "@/utils/branding";
 import type { UIMessage } from "ai";
 import type {
   AdvanceOnboardingStageTool,
@@ -41,8 +42,7 @@ export type OnboardingStage =
 
 export const WELCOME_MESSAGE_ID = "onboarding-welcome";
 
-export const WELCOME_MESSAGE =
-  "Welcome to Inbox Zero. I'm the assistant that will be running your inbox, so before I touch anything I'd like to understand how you work.\n\nTo start: what do you do?";
+export const WELCOME_MESSAGE = `Welcome to ${BRAND_NAME}. I'm the assistant that will be running your inbox, so before I touch anything I'd like to understand how you work.\n\nTo start: what do you do?`;
 
 export const STAGE_CHIPS: Record<OnboardingStage, string[]> = {
   welcome: [

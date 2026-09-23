@@ -154,7 +154,7 @@ describe("checkForDesktopUpdatesManually", () => {
 
     expect(dialog.showMessageBox).toHaveBeenCalledWith(
       expect.objectContaining({
-        detail: "Inbox Zero 0.1.0 is the latest version.",
+        detail: "InboxJarvis 0.1.0 is the latest version.",
         message: "You're up to date",
       }),
     );
@@ -178,7 +178,7 @@ describe("checkForDesktopUpdatesManually", () => {
 
     expect(dialog.showMessageBox).toHaveBeenNthCalledWith(
       1,
-      expect.objectContaining({ message: "Downloading Inbox Zero 0.2.0" }),
+      expect.objectContaining({ message: "Downloading InboxJarvis 0.2.0" }),
     );
     expect(dialog.showMessageBox).toHaveBeenNthCalledWith(
       2,

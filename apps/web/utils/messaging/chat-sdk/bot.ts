@@ -1,3 +1,4 @@
+import { BRAND_NAME, SUPPORT_CONTACT } from "@/utils/branding";
 import type { SlackAdapter, SlackEvent } from "@chat-adapter/slack";
 import { createIoRedisState } from "@chat-adapter/state-ioredis";
 import { createMemoryState } from "@chat-adapter/state-memory";
@@ -94,7 +95,7 @@ const CONNECT_COMMAND_REGEX =
 const PENDING_EMAIL_CONFIRM_ACTION_ID = "acpe";
 const LEGACY_PENDING_EMAIL_CONFIRM_ACTION_ID =
   "assistant_confirm_pending_email";
-const TEAMS_AI_GENERATED_CONTENT_NOTICE = `AI-generated content may be inaccurate. Review before using it. Report objectionable AI-generated content to ${env.NEXT_PUBLIC_SUPPORT_EMAIL}.`;
+const TEAMS_AI_GENERATED_CONTENT_NOTICE = `AI-generated content may be inaccurate. Review before using it. Report objectionable AI-generated content to ${SUPPORT_CONTACT}.`;
 const AFFIRMATIVE_REACTION_EMOJI_TOKENS = new Set(["👍", "✅", "☑", "✔"]);
 const AFFIRMATIVE_REACTION_ALIASES = new Set([
   "+1",
@@ -514,7 +515,7 @@ function registerMessagingHandlers({
           channelId,
           threadTs,
           SLACK_ASSISTANT_SUGGESTED_PROMPTS,
-          "Try asking Inbox Zero",
+          `Try asking ${BRAND_NAME}`,
         );
       } catch (error) {
         logger.warn("Failed to set Slack assistant suggested prompts", {
@@ -1791,7 +1792,7 @@ async function handleMessagingLinkCommand({
 
   if (!linkedCode) {
     await thread.post(
-      "That connect code is invalid or expired. Generate a new code in Inbox Zero settings and try again.",
+      `That connect code is invalid or expired. Generate a new code in ${BRAND_NAME} settings and try again.`,
     );
     return true;
   }
@@ -1803,7 +1804,7 @@ async function handleMessagingLinkCommand({
 
   if (!emailAccount) {
     await thread.post(
-      "This connect code is no longer valid. Generate a new code in Inbox Zero settings and try again.",
+      `This connect code is no longer valid. Generate a new code in ${BRAND_NAME} settings and try again.`,
     );
     return true;
   }
@@ -1855,7 +1856,7 @@ async function handleMessagingLinkCommand({
   await postMessagingThreadMessage({
     thread,
     logger,
-    message: `Connected successfully. You can now chat with your Inbox Zero assistant in this ${provider === "teams" ? "Microsoft Teams" : "Telegram"} direct message. Type \`/help\` to see what I can do.`,
+    message: `Connected successfully. You can now chat with your ${BRAND_NAME} assistant in this ${provider === "teams" ? "Microsoft Teams" : "Telegram"} direct message. Type \`/help\` to see what I can do.`,
     errorLogMessage: "Failed to send messaging link confirmation",
     logMeta: {
       provider,
@@ -2017,7 +2018,7 @@ async function handleHelpCommand({
     logger,
     message: getHelpText(provider, {
       baseUrl: env.NEXT_PUBLIC_BASE_URL,
-      supportEmail: env.NEXT_PUBLIC_SUPPORT_EMAIL,
+      supportEmail: SUPPORT_CONTACT,
     }),
     errorLogMessage: `Failed to send ${provider} help command response`,
     logMeta: { provider },
@@ -2587,8 +2588,7 @@ async function sendUnauthorizedMessage({
   await postMessagingThreadMessage({
     thread,
     logger,
-    message:
-      "To use this bot, connect your Inbox Zero account to this workspace from your settings page.",
+    message: `To use this bot, connect your ${BRAND_NAME} account to this workspace from your settings page.`,
     errorLogMessage: "Failed to send unauthorized messaging message",
     logMeta: { teamId },
   });
@@ -2614,15 +2614,15 @@ async function sendLinkRequiredMessage({
     thread,
     logger,
     message: [
-      `Welcome to Inbox Zero for ${providerName}. I can help you summarize, organize, and draft replies to email from this chat.`,
-      "An active Inbox Zero account is required.",
+      `Welcome to ${BRAND_NAME} for ${providerName}. I can help you summarize, organize, and draft replies to email from this chat.`,
+      `An active ${BRAND_NAME} account is required.`,
       "",
       "To get started:",
       `1. Sign in or create an account at ${baseUrl}.`,
       `2. Open ${baseUrl}/channels and choose ${providerName}.`,
       "3. Generate a connect code and send `/connect <code>` in this direct message.",
       "",
-      `Type \`/help\` for supported commands or contact ${env.NEXT_PUBLIC_SUPPORT_EMAIL} for help.`,
+      `Type \`/help\` for supported commands or contact ${SUPPORT_CONTACT} for help.`,
     ].join("\n"),
     errorLogMessage: "Failed to send link-required message",
     logMeta: { provider },
@@ -2659,8 +2659,7 @@ async function sendUnlinkedChannelMessage({
   await postMessagingThreadMessage({
     thread,
     logger,
-    message:
-      "This channel isn't linked to an email account. Set one up in your Inbox Zero settings.",
+    message: `This channel isn't linked to an email account. Set one up in your ${BRAND_NAME} settings.`,
     errorLogMessage: "Failed to send unlinked channel message",
   });
 }

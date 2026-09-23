@@ -1,5 +1,7 @@
 "use client";
 
+import { BRAND_NAME } from "@/utils/branding";
+
 import { useState } from "react";
 import { Copy, ExternalLink, Link2, Settings2, Zap } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
@@ -222,7 +224,7 @@ function CalendarBookingLinkCard({
         >
           {disabledByInboxZeroLink ? (
             <span className="text-sm text-muted-foreground">
-              Using Inbox Zero booking link
+              Using {BRAND_NAME} booking link
             </span>
           ) : data ? (
             <CalendarBookingLinkForm

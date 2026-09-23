@@ -1,3 +1,4 @@
+import { SUPPORT_CONTACT } from "@/utils/branding";
 import { NextResponse, after } from "next/server";
 import { withError } from "@/utils/middleware";
 import { env } from "@/env";
@@ -53,7 +54,7 @@ export const POST = withError("slack/commands", async (request) => {
       response_type: "ephemeral",
       text: getHelpText("slack", {
         baseUrl: env.NEXT_PUBLIC_BASE_URL,
-        supportEmail: env.NEXT_PUBLIC_SUPPORT_EMAIL,
+        supportEmail: SUPPORT_CONTACT,
       }),
     });
   }

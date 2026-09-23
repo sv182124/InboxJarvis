@@ -1,6 +1,6 @@
 import { env } from "@/env";
 import { getLlmsTxt } from "@/utils/agent-markdown/content";
-import { BRAND_NAME, SUPPORT_EMAIL } from "@/utils/branding";
+import { BRAND_NAME, SUPPORT_CONTACT } from "@/utils/branding";
 import { isMcpServerAvailable } from "@/utils/mcp/config";
 
 export function GET() {
@@ -8,7 +8,7 @@ export function GET() {
     env.NEXT_PUBLIC_BASE_URL,
     {
       brandName: BRAND_NAME,
-      supportEmail: SUPPORT_EMAIL,
+      supportEmail: SUPPORT_CONTACT,
     },
     isMcpServerAvailable(),
   );

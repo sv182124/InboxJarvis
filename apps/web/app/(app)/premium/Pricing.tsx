@@ -1,12 +1,13 @@
 "use client";
 
+import { SUPPORT_CONTACT } from "@/utils/branding";
+
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { CheckIcon, SparklesIcon } from "lucide-react";
 import Link from "next/link";
 import { usePostHog } from "posthog-js/react";
-import { env } from "@/env";
 import { LoadingContent } from "@/components/LoadingContent";
 import { usePremium } from "@/hooks/usePremium";
 import {
@@ -426,9 +427,9 @@ function PriceTier({
 
             if (!result?.data?.url || result?.serverError) {
               const description = hasActiveStripeSubscription
-                ? `We couldn't open the plan change page. Your subscription has not been changed. Please contact support at ${env.NEXT_PUBLIC_SUPPORT_EMAIL}`
+                ? `We couldn't open the plan change page. Your subscription has not been changed. Please contact support at ${SUPPORT_CONTACT}`
                 : result?.serverError ||
-                  `Error creating checkout session. Please contact support at ${env.NEXT_PUBLIC_SUPPORT_EMAIL}`;
+                  `Error creating checkout session. Please contact support at ${SUPPORT_CONTACT}`;
 
               captureException(new Error("Error opening Stripe billing flow"), {
                 extra: {
@@ -456,7 +457,7 @@ function PriceTier({
               description:
                 error instanceof Error
                   ? error.message
-                  : `Error creating checkout session. Please contact support at ${env.NEXT_PUBLIC_SUPPORT_EMAIL}`,
+                  : `Error creating checkout session. Please contact support at ${SUPPORT_CONTACT}`,
             });
           } finally {
             setLoading(false);

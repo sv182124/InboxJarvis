@@ -150,7 +150,7 @@ describe("RecallBotProvider", () => {
     const requestBody = JSON.parse(request?.body as string);
     expect(requestBody).toMatchObject({
       meeting_url: "https://meet.google.com/abc-defg-hij",
-      bot_name: "Inbox Zero Notetaker",
+      bot_name: "InboxJarvis Notetaker",
       join_at: "2026-05-04T09:00:00.000Z",
     });
     expect(requestBody).not.toHaveProperty("automatic_video_output");

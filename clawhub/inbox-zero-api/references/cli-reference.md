@@ -1,18 +1,18 @@
-# Inbox Zero API CLI Reference
+# InboxJarvis API CLI Reference
 
-## Install
+## Run from the InboxJarvis source
 
 Use one of:
 
-- `npm install -g @inbox-zero/api`
-- `npx @inbox-zero/api --help`
+- After `pnpm install`, run `pnpm exec tsx packages/api/src/main.ts --help` from the repository root.
+- Published `@inbox-zero/api` packages are upstream compatibility clients. Set `INBOX_ZERO_BASE_URL=http://localhost:3000` before using one with the local app.
 
 The executable name is `inbox-zero-api`.
 
 ## Authentication and config
 
 - `INBOX_ZERO_API_KEY` is required for authenticated commands such as `rules` and `stats`.
-- `INBOX_ZERO_BASE_URL` is optional for self-hosted or custom deployments.
+- `INBOX_ZERO_BASE_URL` selects your deployment; use `http://localhost:3000` for local InboxJarvis.
 - Config precedence is: flags, environment variables, `~/.inbox-zero-api/config.json`.
 
 Examples:

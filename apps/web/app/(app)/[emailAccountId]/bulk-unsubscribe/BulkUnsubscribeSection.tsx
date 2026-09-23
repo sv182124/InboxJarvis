@@ -379,7 +379,7 @@ export function BulkUnsubscribe() {
               Learn how to quickly bulk unsubscribe from and archive unwanted
               emails. You can read more in our{" "}
               <TextLink
-                href="https://docs.getinboxzero.com/essentials/bulk-email-unsubscriber"
+                href="https://github.com/sv182124/InboxJarvis/blob/main/docs/essentials/bulk-email-unsubscriber.mdx"
                 target="_blank"
                 rel="noopener noreferrer"
               >

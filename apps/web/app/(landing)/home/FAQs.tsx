@@ -9,7 +9,6 @@ import {
   Paragraph,
   SectionHeading,
 } from "@/components/new-landing/common/Typography";
-import { env } from "@/env";
 import { BRAND_NAME } from "@/utils/branding";
 
 const faqs: {
@@ -26,7 +25,7 @@ const faqs: {
     question: "How can I request a feature?",
     answer: (
       <span>
-        Email us or post an issue on{" "}
+        Post an issue on{" "}
         <Anchor href="/github" newTab>
           GitHub
         </Anchor>
@@ -34,29 +33,17 @@ const faqs: {
       </span>
     ),
     answerText:
-      "Email us or post an issue on GitHub. We're happy to hear how we can improve your email experience.",
+      "Post an issue on GitHub. We're happy to hear how we can improve your email experience.",
   },
   {
     question: `Will ${BRAND_NAME} replace my current email client?`,
     answer: `No! ${BRAND_NAME} isn't an email client. It's used alongside your existing email client. You use Google or Outlook as normal.`,
   },
   {
-    question: "Is there a mobile app?",
-    answer: (
-      <span>
-        Yes, we have iOS and Android apps so you can triage your inbox and
-        manage your assistant on the go. Learn more on the{" "}
-        <Anchor href="/mobile-app">mobile app</Anchor> page.
-      </span>
-    ),
-    answerText:
-      "Yes, we have iOS and Android apps so you can triage your inbox and manage your assistant on the go. Learn more on the mobile app page.",
-  },
-  {
     question: "Is the code open-source?",
     answer: (
       <span>
-        Yes! You can see the entire source code for the inbox zero app in our{" "}
+        You can read the source code and license terms in our{" "}
         <Anchor href="/github" newTab>
           GitHub repo
         </Anchor>
@@ -64,24 +51,12 @@ const faqs: {
       </span>
     ),
     answerText:
-      "Yes! You can see the entire source code for the inbox zero app in our GitHub repo.",
+      "You can read the source code and license terms in our GitHub repo.",
   },
   {
-    question: "Do you offer refunds?",
-    answer: (
-      <span>
-        Yes, if you don't think we provided you with value send us an{" "}
-        <Anchor href={`mailto:${env.NEXT_PUBLIC_SUPPORT_EMAIL}`}>email</Anchor>{" "}
-        within 14 days of upgrading and we'll refund you.
-      </span>
-    ),
-    answerText:
-      "Yes, if you don't think we provided you with value send us an email within 14 days of upgrading and we'll refund you.",
-  },
-  {
-    question: `Can I try ${BRAND_NAME} for free?`,
+    question: `Where can I run ${BRAND_NAME}?`,
     answer:
-      "Absolutely! All plans include a 7-day free trial. A credit card is required to start your trial, but you won't be charged until the trial ends. Cancel anytime during the trial to avoid being charged.",
+      "Run it locally or deploy it on your own infrastructure. See the repository documentation for setup instructions.",
   },
 ];
 

@@ -1,3 +1,4 @@
+import { BRAND_NAME } from "@/utils/branding";
 import { createHash } from "node:crypto";
 import { APIError } from "better-auth";
 import { deleteSessionCookie } from "better-auth/cookies";
@@ -28,9 +29,9 @@ export const emailOtpPlugin = emailOTP({
         const result = await deliverTransactionalEmail({
           from: env.RESEND_FROM_EMAIL,
           to: email,
-          subject: "Your Inbox Zero sign-in code",
-          html: `<p>Your Inbox Zero sign-in code is <strong>${otp}</strong>.</p><p>It expires in 5 minutes and gives access to your entire Inbox Zero account, including all connected mailboxes and calendars.</p><p>If you did not request this code, you can ignore this email.</p>`,
-          text: `Your Inbox Zero sign-in code is ${otp}.\n\nThis code expires in 5 minutes and can be used once. It gives access to your entire Inbox Zero account, including all connected mailboxes and calendars.\n\nIf you did not request this code, you can ignore this email.`,
+          subject: `Your ${BRAND_NAME} sign-in code`,
+          html: `<p>Your ${BRAND_NAME} sign-in code is <strong>${otp}</strong>.</p><p>It expires in 5 minutes and gives access to your entire ${BRAND_NAME} account, including all connected mailboxes and calendars.</p><p>If you did not request this code, you can ignore this email.</p>`,
+          text: `Your ${BRAND_NAME} sign-in code is ${otp}.\n\nThis code expires in 5 minutes and can be used once. It gives access to your entire ${BRAND_NAME} account, including all connected mailboxes and calendars.\n\nIf you did not request this code, you can ignore this email.`,
         });
         if (!result) {
           logger.error("Failed to deliver sign-in code");

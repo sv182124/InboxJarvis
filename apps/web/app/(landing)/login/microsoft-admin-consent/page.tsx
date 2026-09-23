@@ -6,7 +6,7 @@ import { AlertBasic } from "@/components/Alert";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
 import { getEnabledLoginProviders } from "@/utils/oauth/login-providers";
-import { BRAND_NAME, SUPPORT_EMAIL, getBrandTitle } from "@/utils/branding";
+import { BRAND_NAME, SUPPORT_CONTACT, getBrandTitle } from "@/utils/branding";
 
 export const metadata: Metadata = {
   title: getBrandTitle("Microsoft admin consent"),
@@ -67,7 +67,7 @@ export default async function MicrosoftAdminConsentPage(props: {
               <AlertBasic
                 variant="destructive"
                 title="Microsoft login is not configured"
-                description={`Set up Microsoft OAuth before granting admin consent. Contact ${SUPPORT_EMAIL} if you need help.`}
+                description={`Set up Microsoft OAuth before granting admin consent. Contact ${SUPPORT_CONTACT} if you need help.`}
               />
             )}
 

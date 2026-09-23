@@ -1,5 +1,7 @@
 "use client";
 
+import { BRAND_NAME } from "@/utils/branding";
+
 import { useState } from "react";
 import Link from "next/link";
 import { CreditCardIcon } from "lucide-react";
@@ -94,10 +96,10 @@ export function EndTrialButton({
                   </p>
                   {preview.trialEnd && (
                     <p>
-                      You do not need to do this to keep using Inbox Zero. Your
-                      trial already includes every paid feature and runs free
-                      until {formatDateSimple(new Date(preview.trialEnd))}, when
-                      the same charge happens automatically.
+                      You do not need to do this to keep using {BRAND_NAME}.
+                      Your trial already includes every paid feature and runs
+                      free until {formatDateSimple(new Date(preview.trialEnd))},
+                      when the same charge happens automatically.
                     </p>
                   )}
                   <p>

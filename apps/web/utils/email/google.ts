@@ -1,3 +1,4 @@
+import { BRAND_NAME } from "@/utils/branding";
 import { getCompleteGmailThread } from "@/utils/gmail/thread";
 import type { LocalMailSyncRequest } from "@/utils/actions/local-mail-sync.validation";
 import type { LocalMailSyncResponse } from "@/utils/email/local-mail-sync-types";
@@ -970,7 +971,7 @@ export class GmailProvider implements EmailProvider {
         headerMessageId,
         references: parentReferences,
       }),
-      headers: { "X-Mailer": "Inbox Zero Web" },
+      headers: { "X-Mailer": `${BRAND_NAME} Web` },
     });
 
     const result = await withGmailRetry(() =>
@@ -1032,7 +1033,7 @@ export class GmailProvider implements EmailProvider {
       html: content,
       inReplyTo: currentDraft.headers?.["in-reply-to"],
       references: currentDraft.headers?.references,
-      headers: { "X-Mailer": "Inbox Zero Web" },
+      headers: { "X-Mailer": `${BRAND_NAME} Web` },
     });
 
     await withGmailRetry(() =>

@@ -51,7 +51,7 @@ const BADGES = {
 
 export default function SummaryEmail(props: SummaryEmailProps) {
   const {
-    baseUrl = "https://www.getinboxzero.com",
+    baseUrl = "http://localhost:3000",
     archivedEmailCount = 0,
     archivedEmails = [],
     coldEmailers,
@@ -78,7 +78,7 @@ export default function SummaryEmail(props: SummaryEmailProps) {
                   src={`${baseUrl}/logo-wordmark.png`}
                   width="209"
                   height="25"
-                  alt="Inbox Zero"
+                  alt="InboxJarvis"
                   className="mx-auto my-0"
                 />
               </Link>
@@ -132,7 +132,7 @@ export default function SummaryEmail(props: SummaryEmailProps) {
 }
 
 SummaryEmail.PreviewProps = {
-  baseUrl: "https://www.getinboxzero.com",
+  baseUrl: "http://localhost:3000",
   periodEnd: new Date("2024-03-20"),
   archivedEmailCount: 8,
   archivedEmails: [

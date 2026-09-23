@@ -26,14 +26,14 @@ import {
 
 describe("desktop shell helpers", () => {
   it("uses the production origin by default", () => {
-    expect(getDesktopAppOrigin("https://www.getinboxzero.com/ignored")).toBe(
-      "https://www.getinboxzero.com",
+    expect(getDesktopAppOrigin("http://localhost:3000/ignored")).toBe(
+      "http://localhost:3000",
     );
-    expect(getDesktopLoginUrl("https://www.getinboxzero.com")).toBe(
-      "https://www.getinboxzero.com/login",
+    expect(getDesktopLoginUrl("http://localhost:3000")).toBe(
+      "http://localhost:3000/login",
     );
-    expect(getDesktopHomeUrl("https://www.getinboxzero.com")).toBe(
-      "https://www.getinboxzero.com/welcome-redirect?mode=mail",
+    expect(getDesktopHomeUrl("http://localhost:3000")).toBe(
+      "http://localhost:3000/welcome-redirect?mode=mail",
     );
   });
 
@@ -57,10 +57,7 @@ describe("desktop shell helpers", () => {
       true,
     );
     expect(
-      isAllowedDesktopNavigation(
-        "https://www.getinboxzero.com/acc-1/mail",
-        origin,
-      ),
+      isAllowedDesktopNavigation("http://localhost:3000/acc-1/mail", origin),
     ).toBe(false);
     expect(isAllowedDesktopNavigation("https://evil.test/mail", origin)).toBe(
       false,
@@ -69,19 +66,13 @@ describe("desktop shell helpers", () => {
       getDesktopSessionRestoreUrl(origin, `${origin}/acc-1/mail?type=inbox`),
     ).toBe(`${origin}/acc-1/mail?type=inbox`);
     expect(
-      getDesktopSessionRestoreUrl(
-        origin,
-        "https://www.getinboxzero.com/acc-1/mail",
-      ),
+      getDesktopSessionRestoreUrl(origin, "http://localhost:3000/acc-1/mail"),
     ).toBeNull();
     expect(getDesktopMailAccountId(`${origin}/acc-1/mail`, origin)).toBe(
       "acc-1",
     );
     expect(
-      getDesktopMailAccountId(
-        "https://www.getinboxzero.com/acc-1/mail",
-        origin,
-      ),
+      getDesktopMailAccountId("http://localhost:3000/acc-1/mail", origin),
     ).toBeNull();
     expect(getDesktopPostAuthUrl(origin, "/connect-mailbox")).toBe(
       `${origin}/connect-mailbox`,
@@ -90,13 +81,9 @@ describe("desktop shell helpers", () => {
 
   it("builds the system-browser OAuth start URL", () => {
     expect(
-      getDesktopBrowserStartUrl(
-        "https://www.getinboxzero.com",
-        "google",
-        "challenge",
-      ),
+      getDesktopBrowserStartUrl("http://localhost:3000", "google", "challenge"),
     ).toBe(
-      "https://www.getinboxzero.com/api/mobile-auth/browser-start?provider=google&codeChallenge=challenge",
+      "http://localhost:3000/api/mobile-auth/browser-start?provider=google&codeChallenge=challenge",
     );
   });
 
@@ -144,18 +131,18 @@ describe("desktop shell helpers", () => {
   it("keeps navigation on the app origin", () => {
     expect(
       isAllowedDesktopNavigation(
-        "https://www.getinboxzero.com/mail",
-        "https://www.getinboxzero.com",
+        "http://localhost:3000/mail",
+        "http://localhost:3000",
       ),
     ).toBe(true);
     expect(
       isAllowedDesktopNavigation(
         "https://accounts.google.com/o/oauth2/v2/auth",
-        "https://www.getinboxzero.com",
+        "http://localhost:3000",
       ),
     ).toBe(false);
     expect(
-      isAllowedDesktopNavigation("about:blank", "https://www.getinboxzero.com"),
+      isAllowedDesktopNavigation("about:blank", "http://localhost:3000"),
     ).toBe(true);
   });
 
@@ -166,16 +153,12 @@ describe("desktop shell helpers", () => {
     expect(url).toContain("accountId=acc-1");
     expect(isDesktopLocalMailUrl(url, rendererFile)).toBe(true);
     expect(
-      isAllowedDesktopNavigation(
-        url,
-        "https://www.getinboxzero.com",
-        rendererFile,
-      ),
+      isAllowedDesktopNavigation(url, "http://localhost:3000", rendererFile),
     ).toBe(true);
     expect(
       isAllowedDesktopNavigation(
         "file:///etc/passwd",
-        "https://www.getinboxzero.com",
+        "http://localhost:3000",
         rendererFile,
       ),
     ).toBe(false);
@@ -189,20 +172,20 @@ describe("desktop shell helpers", () => {
     expect(shouldSmokeLocalMail({})).toBe(false);
     expect(
       resolveDesktopStartUrl({
-        requestedUrl: "https://www.getinboxzero.com/account-1/mail",
+        requestedUrl: "http://localhost:3000/account-1/mail",
         localMailUrl: url,
-        homeUrl: "https://www.getinboxzero.com/welcome-redirect?mode=mail",
+        homeUrl: "http://localhost:3000/welcome-redirect?mode=mail",
         rendererFile,
       }),
     ).toBe(url);
     expect(
       resolveDesktopStartUrl({
-        requestedUrl: "https://www.getinboxzero.com/account-1/mail",
+        requestedUrl: "http://localhost:3000/account-1/mail",
         localMailUrl: null,
-        homeUrl: "https://www.getinboxzero.com/welcome-redirect?mode=mail",
+        homeUrl: "http://localhost:3000/welcome-redirect?mode=mail",
         rendererFile,
       }),
-    ).toBe("https://www.getinboxzero.com/account-1/mail");
+    ).toBe("http://localhost:3000/account-1/mail");
   });
 
   it("finds the protocol URL in process arguments", () => {
@@ -220,7 +203,7 @@ describe("desktop shell helpers", () => {
     expect(
       isAllowedExternalUrl("https://accounts.google.com/o/oauth2/v2/auth"),
     ).toBe(true);
-    expect(isAllowedExternalUrl("mailto:hello@getinboxzero.com")).toBe(true);
+    expect(isAllowedExternalUrl("mailto:hello@example.com")).toBe(true);
     expect(isAllowedExternalUrl("file:///etc/passwd")).toBe(false);
     expect(isAllowedExternalUrl("inboxzero://auth-callback")).toBe(false);
   });
@@ -228,23 +211,18 @@ describe("desktop shell helpers", () => {
   it("loads a validated post-auth path and falls back to mail", () => {
     expect(
       getDesktopPostAuthUrl(
-        "https://www.getinboxzero.com",
+        "http://localhost:3000",
         "/connect-mailbox?next=%2Fwelcome-redirect",
       ),
-    ).toBe(
-      "https://www.getinboxzero.com/connect-mailbox?next=%2Fwelcome-redirect",
-    );
+    ).toBe("http://localhost:3000/connect-mailbox?next=%2Fwelcome-redirect");
     expect(
-      getDesktopPostAuthUrl(
-        "https://www.getinboxzero.com",
-        "https://evil.test",
-      ),
-    ).toBe("https://www.getinboxzero.com/welcome-redirect?mode=mail");
+      getDesktopPostAuthUrl("http://localhost:3000", "https://evil.test"),
+    ).toBe("http://localhost:3000/welcome-redirect?mode=mail");
     expect(normalizeDesktopCallbackPath("//evil.test")).toBeNull();
     expect(normalizeDesktopCallbackPath("/.//evil.test")).toBe("/evil.test");
     expect(
-      getDesktopPostAuthUrl("https://www.getinboxzero.com", "/.//evil.test"),
-    ).toBe("https://www.getinboxzero.com/evil.test");
+      getDesktopPostAuthUrl("http://localhost:3000", "/.//evil.test"),
+    ).toBe("http://localhost:3000/evil.test");
   });
 
   it("uses platform-appropriate title bars and menu visibility", () => {
@@ -265,7 +243,7 @@ describe("desktop shell helpers", () => {
   });
 
   it("persists in-app pages but not auth or API URLs", () => {
-    const origin = "https://www.getinboxzero.com";
+    const origin = "http://localhost:3000";
     expect(
       shouldPersistDesktopUrl(`${origin}/account-1/automation`, origin),
     ).toBe(true);
@@ -288,7 +266,7 @@ describe("desktop shell helpers", () => {
   });
 
   it("restores only validated mail URLs on launch", () => {
-    const origin = "https://www.getinboxzero.com";
+    const origin = "http://localhost:3000";
     expect(
       getDesktopSessionRestoreUrl(
         origin,
@@ -307,7 +285,7 @@ describe("desktop shell helpers", () => {
   });
 
   it("reads a mail account id only from same-origin mailbox URLs", () => {
-    const origin = "https://www.getinboxzero.com";
+    const origin = "http://localhost:3000";
     expect(
       getDesktopMailAccountId(`${origin}/account-1/mail?type=inbox`, origin),
     ).toBe("account-1");
