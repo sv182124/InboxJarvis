@@ -17,7 +17,9 @@ concurrency:
 
 jobs:
   publish:
+    # GitHub keeps the test artifacts; external publishing requires an S3 bucket.
     if: >-
+      vars.S3_BUCKET != '' &&
       (github.event.workflow_run.conclusion == 'success' ||
        github.event.workflow_run.conclusion == 'failure' ||
        github.event.workflow_run.conclusion == 'timed_out') &&
